@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Cui — Project</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <style>
+        :root { --paper: #f7f3f0; --ink: #111; }
+        body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+        .project-art { background: linear-gradient(145deg, #dedbd5, #aaa6a0 52%, #d2cec8); }
+        .project-art::after { content: ''; display: block; width: 42%; height: 42%; margin: 29% auto; border: 1px solid rgba(0,0,0,.13); transform: rotate(45deg); }
+        .social-links { display: flex; align-items: center; gap: 12px; }
+        .social-link { width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; color: #000; opacity: .8; transition: opacity .2s ease, transform .2s ease; }
+        .social-link:hover, .social-link:focus-visible { opacity: .45; transform: translateY(-1px); }
+        .social-link:focus-visible { outline: 1px solid #000; outline-offset: 4px; }
+        .social-link svg { width: 19px; height: 19px; display: block; }
+        .social-monogram { font-size: 10px; font-weight: 900; letter-spacing: -.08em; }
+        .project-viewer-main{flex:1;min-height:0;padding:18px clamp(16px,4vw,64px) 28px;display:flex;flex-direction:column}
+        .project-back{width:min(1500px,100%);margin:0 auto 12px;font-size:10px;font-weight:900;letter-spacing:.2em;text-decoration:none}
+        .project-viewer{width:min(1500px,100%);margin:auto;display:grid;grid-template-columns:64px minmax(0,1fr) 64px;align-items:center;gap:18px}
+        .project-image-stage{height:clamp(340px,68svh,800px);min-height:0;overflow:hidden;display:grid;place-items:center;background:#202020}
+        .project-image-stage img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+        .project-arrow{width:56px;height:72px;border:1px solid rgba(0,0,0,.18);background:#f7f3f0;color:#111;font-size:30px;cursor:pointer}
+        .project-arrow:hover:not(:disabled),.project-arrow:focus-visible{background:#111;color:#fff}
+        .project-arrow:disabled{opacity:.2;cursor:default}
+        .project-caption{width:min(1500px,100%);margin:16px auto 0;display:grid;grid-template-columns:1fr auto;gap:7px 24px;align-items:end}
+        .project-category{grid-column:1/-1;font-size:10px;font-weight:900;letter-spacing:.24em;text-transform:uppercase;color:#777}
+        .project-caption h1{grid-column:1;margin:0;font-size:clamp(30px,5vw,64px);line-height:.95;letter-spacing:-.055em}
+        .project-caption p{grid-column:1;margin:0;max-width:680px;font-size:13px;line-height:1.55;color:#666}
+        .project-count{grid-column:2;grid-row:2/4;font-size:10px;font-weight:900;letter-spacing:.2em}
+        @media(max-width:720px){.project-viewer-main{padding:14px 16px 22px}.project-viewer{grid-template-columns:1fr 1fr;gap:9px}.project-image-stage{grid-column:1/-1;grid-row:1;height:clamp(340px,58svh,620px)}.project-arrow{width:100%;height:52px;font-size:25px}.project-caption{grid-template-columns:1fr;margin-top:14px}.project-caption h1{font-size:clamp(28px,9vw,48px)}.project-count{grid-column:1;grid-row:auto;margin-top:8px}}
+        .cms-project-figure { margin:0; background:#e8e5e1; }
+        .cms-project-figure img { display:block; width:100%; height:auto; max-height:85vh; object-fit:contain; }
+        .cms-project-status { margin-top:48px; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+    
+        
+        
+        
+        
+        /* artwork-viewer-upgrade */
+        .ratio-stage, .viewer-stage, .illustration-stage, .project-image-stage, .ratio-project-stage {
+          position: relative; display: grid; place-items: center; height: clamp(300px, 76svh, 900px); min-height: 0; overflow: hidden; background: var(--paper);
+        }
+        .ratio-stage .slide, .ratio-art { display: grid; place-items: center; background: var(--paper); }
+        .ratio-stage img, .viewer-stage img, .illustration-stage img, .project-image-stage img, .ratio-project-stage img {
+          position: relative; inset: auto; display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+          object-fit: contain; object-position: center; background: var(--paper); transform: none; visibility: visible; cursor: zoom-in;
+        }
+        .ratio-stage img[data-fit-state="loading"], .viewer-stage img[data-fit-state="loading"], .illustration-stage img[data-fit-state="loading"], .project-image-stage img[data-fit-state="loading"], .ratio-project-stage img[data-fit-state="loading"] { visibility: hidden; }
+        .ratio-arrow, .viewer-arrow, .project-arrow { background: var(--paper); }
+        .ratio-arrow[hidden], .viewer-arrow[hidden], .project-arrow[hidden] { display: none !important; }
+        #viewer-image:focus-visible, #slide-image:focus-visible, #illustration-image:focus-visible, #project-image:focus-visible {
+          outline: 2px solid currentColor; outline-offset: 3px;
+        }
+        .artwork-zoom[open] {
+          position: fixed; inset: 3vh 2vw; width: auto; height: auto; max-width: none; max-height: none; margin: 0;
+          padding: 14px; border: 0; display: flex; flex-direction: column; gap: 10px; overflow: hidden;
+          background: var(--paper); color: var(--ink, #111);
+        }
+        .artwork-zoom::backdrop { background: rgba(0,0,0,.76); }
+        .zoom-toolbar { min-height: 42px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .zoom-label { font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+        .zoom-close { min-width: 64px; min-height: 38px; padding: 7px 14px; border: 1px solid currentColor; background: var(--paper); color: inherit; cursor: pointer; }
+        .zoom-close:hover, .zoom-close:focus-visible { background: var(--ink, #111); color: var(--paper); }
+        .zoom-viewport { position: relative; flex: 1; min-width: 0; min-height: 0; overflow: hidden; overscroll-behavior: contain; background: var(--paper); }
+        .zoom-image { position: absolute; left: 50%; top: 50%; display: block; max-width: none; max-height: none; object-fit: contain; object-position: center; transform: translate(-50%, -50%); user-select: none; }
+        @media (max-width: 720px) {
+          .ratio-stage, .viewer-stage, .illustration-stage, .project-image-stage, .ratio-project-stage { height: clamp(280px, 58svh, 620px); }
+          .artwork-zoom[open] { inset: 1vh 1vw; padding: 8px; }
+          .zoom-toolbar { align-items: center; flex-direction: row; gap: 7px; }
+        }
+
+    </style>
+<style id="project-gallery-layout">
+/* project-gallery-layout: larger-equal-height-continuous-strip-20260929 */
+.project-viewer-main{flex:1;min-height:0;width:100%;padding:8px clamp(16px,2.2vw,36px) 22px;display:flex;flex-direction:column;background:var(--paper)}
+.project-back{width:min(1600px,100%);margin:0 auto 10px;font-size:10px;font-weight:900;letter-spacing:.2em;text-decoration:none;color:inherit}
+.character-slider{min-width:0}
+.project-gallery{position:relative;width:min(1600px,100%);margin:0 auto}
+.project-gallery-viewport{position:relative;width:100%;height:clamp(320px,80svh,860px);min-height:0;overflow:hidden;background:var(--paper);touch-action:pan-y}
+.project-gallery-track{position:absolute;left:0;top:0;height:100%;display:flex;align-items:center;gap:clamp(12px,1.5vw,22px);width:max-content;will-change:transform;transition:none!important}
+.project-gallery[data-loading="true"] .project-gallery-track{visibility:hidden}
+.project-gallery[data-animating="true"] .project-gallery-track{pointer-events:none}
+.project-gallery-slide{position:relative;flex:0 0 auto;height:100%;display:flex;align-items:center;justify-content:center;min-width:0;cursor:pointer;outline:none;opacity:.56;transition:opacity 460ms ease}
+.project-gallery-slide[data-in-viewport="false"]{opacity:0}
+.project-gallery-slide[data-active="true"]:not([data-in-viewport="false"]){opacity:1}
+.project-gallery-slide[data-in-viewport="true"]:not([data-active="true"]){opacity:.56}
+.project-gallery-slide[hidden]{display:none!important}
+.project-image-stage{position:relative;display:grid;place-items:center;flex:none;width:auto;height:auto;min-width:0;min-height:0;overflow:hidden;background:var(--paper)}
+.project-image-stage img{position:relative;inset:auto;display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:center;background:var(--paper);transform:none;cursor:pointer;user-select:none}
+.project-gallery-slide[data-active="true"] img{cursor:zoom-in}
+.project-gallery-slide:focus-visible .project-image-stage{outline:2px solid currentColor;outline-offset:4px}
+.project-gallery-controls{position:absolute;inset:0;z-index:4;pointer-events:none}
+.project-gallery .project-arrow{position:absolute;top:50%;left:8px;width:50px;height:50px;display:grid;place-items:center;padding:0;border:0;background:#111;color:#fff;line-height:0;cursor:pointer;opacity:0;pointer-events:auto;transform:translateY(-50%);transition:opacity 160ms ease}
+.project-gallery .project-arrow svg{display:block;width:20px;height:20px;overflow:visible}
+.project-gallery .project-arrow svg[hidden]{display:none!important}
+.project-gallery .project-arrow svg path{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.project-gallery .project-arrow:last-child{left:auto;right:8px}
+.project-gallery:hover .project-arrow:not([hidden]),.project-gallery:focus-within .project-arrow:not([hidden]){opacity:1}
+.project-gallery .project-arrow:disabled{cursor:default}
+.project-gallery .project-arrow:focus-visible{outline:2px solid #111;outline-offset:3px;opacity:1}
+.project-gallery .project-arrow[hidden]{display:none!important}
+.project-caption{width:min(1600px,100%);margin:14px auto 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 24px;align-items:end}
+.project-category{grid-column:1/-1;font-size:10px;font-weight:900;letter-spacing:.24em;text-transform:uppercase;color:#777}
+.project-caption h1{grid-column:1;margin:0;font-size:clamp(30px,4.6vw,60px);line-height:.95;letter-spacing:-.055em}
+.project-caption p{grid-column:1;margin:0;max-width:680px;font-size:13px;line-height:1.55;color:#666}
+.project-caption h1,.project-caption p,.viewer-caption .slide-title,.viewer-caption .slide-caption{grid-column:1;justify-self:start;width:100%;margin-inline:0;padding-inline:0;text-align:left}
+.viewer-caption .slide-title,.viewer-caption .slide-caption{display:block}
+.project-count{grid-column:2;grid-row:2/4;font-size:10px;font-weight:900;letter-spacing:.2em;white-space:nowrap}
+.cms-project-status{width:min(1600px,100%);margin:12px auto 0}
+@media(max-width:720px){
+.project-viewer-main{padding:8px 14px 20px}
+.project-gallery{display:flex;flex-direction:column;gap:8px}
+.project-gallery-viewport{height:clamp(260px,54svh,600px)}
+.project-gallery-controls{position:static;display:flex;gap:10px;pointer-events:auto}
+.project-gallery .project-arrow{position:relative;top:auto;left:auto;right:auto;flex:1;width:auto;height:46px;transform:none;opacity:1}
+.project-gallery .project-arrow:last-child{left:auto;right:auto}
+.project-caption{grid-template-columns:1fr}
+.project-caption h1{font-size:clamp(28px,8vw,46px)}
+.project-count{grid-column:1;grid-row:auto}
+}
+@media(prefers-reduced-motion:reduce){.project-gallery-slide{transition-duration:0s}}
+.submenu{position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 32px;border-bottom:1px solid rgba(0,0,0,.1);color:#000;line-height:normal;background:var(--paper)}
+.submenu-left{display:flex;align-items:center;flex-wrap:wrap;gap:20px}
+.index-label{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.index-label::before{content:'+';color:rgba(0,0,0,.3);margin-right:2px}
+.index-dot{width:6px;height:6px;border-radius:50%;background:#000}
+.filter-pills{position:relative;display:flex;flex-wrap:wrap;gap:24px}
+.filter-pill{border:0;border-radius:0;padding:0;background:transparent;color:rgba(0,0,0,.38);font-size:10px;font-weight:800;letter-spacing:.14em;line-height:1;text-decoration:none;transition:color .18s ease,opacity .18s ease}
+.filter-pill:hover,.filter-pill:focus-visible,.filter-pill.active{color:#000}
+.submenu-caption{font-size:10px;font-weight:800;letter-spacing:.18em;opacity:.3;text-transform:uppercase}
+@media(max-width:720px){.submenu{padding:14px 20px;align-items:flex-start;flex-direction:column}}
+</style><style id="portfolio-video-gallery">.project-image-stage video{position:relative;inset:auto;display:block;flex:none;max-width:none;max-height:none;object-fit:contain;object-position:center;background:var(--paper);user-select:none}.project-image-stage video[data-fit-state="loading"]{visibility:hidden}</style>
+<style id="project-mobile-vertical-gallery">
+.project-mobile-gallery{display:none}
+.project-mobile-figure{width:100%;margin:0}
+.project-mobile-image-stage{width:100%;height:auto;min-height:0;overflow:visible;background:var(--paper)}
+.project-mobile-image-stage>img,.project-mobile-image-stage>video{display:block;width:100%;height:auto;max-width:100%;max-height:none;object-fit:contain;object-position:center;background:var(--paper)}
+.project-mobile-image-stage>img{cursor:zoom-in}
+.project-mobile-figure-caption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:8px;color:#777;font-size:10px;line-height:1.5}
+.project-mobile-image-number{flex:none;font-weight:900;letter-spacing:.16em;font-variant-numeric:tabular-nums}
+.project-mobile-image-caption{min-width:0;text-align:right;overflow-wrap:anywhere}
+@media(max-width:720px){
+  html,body{height:auto;min-height:100%;overflow-x:hidden}
+  body{min-height:100svh}
+  header>div:first-child{padding:14px 16px!important;gap:12px;flex-wrap:wrap}
+  header>div:first-child>a{gap:8px!important}
+  header>div:first-child>a>span:first-child{font-size:15px!important;letter-spacing:.18em!important}
+  header>div:first-child>nav{width:100%;justify-content:space-between;gap:12px!important}
+  header>div:first-child>nav>a{font-size:9px!important;letter-spacing:.14em!important}
+  header .social-links{gap:7px}
+  header .social-link{width:19px;height:19px}
+  header .social-link svg{width:16px;height:16px}
+  .project-viewer-main{flex:0 0 auto;min-height:0;display:block;padding:12px 16px 32px}
+  .project-back{display:block;margin:0 auto 20px;font-size:9px}
+  #project-gallery,.project-desktop-caption{display:none!important}
+  #project-mobile-gallery{display:block;width:100%;max-width:720px;margin:0 auto}
+  .project-mobile-caption{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;margin:0 auto 24px;align-items:start}
+  .project-mobile-caption .project-category{grid-column:1;font-size:9px;letter-spacing:.2em}
+  .project-mobile-caption h1{grid-column:1;margin:0;font-size:clamp(28px,8vw,46px);line-height:1;letter-spacing:-.055em;overflow-wrap:anywhere}
+  .project-mobile-caption p{grid-column:1;margin:0;max-width:100%;font-size:13px;line-height:1.6;color:#666;overflow-wrap:anywhere}
+  .project-mobile-images{display:grid;grid-template-columns:minmax(0,1fr);gap:30px;width:100%}
+  .project-mobile-figure{min-width:0}
+  .project-mobile-image-stage{display:block;width:100%;height:auto;min-height:0;overflow:visible}
+  .project-mobile-image-stage>img,.project-mobile-image-stage>video{width:100%;height:auto;max-width:100%;max-height:none;object-fit:contain}
+  .project-mobile-figure-caption{margin-top:8px;font-size:9px}
+  footer{gap:12px;padding:20px 16px!important;font-size:8px!important;letter-spacing:.14em!important}
+  footer .social-links{gap:6px}
+  footer .social-link{width:18px;height:18px}
+  footer .social-link svg{width:15px;height:15px}
+}
+</style><link rel="stylesheet" href="work-category-menu.css?v=category-grid-20260929"><script src="portfolio-data.js"></script><script src="static-api.js"></script></head>
+<body class="min-h-screen flex flex-col">
+    <header class="w-full border-b border-black/10 sticky top-0 bg-[#f7f3f0]/90 backdrop-blur-md z-10">
+        <div class="flex justify-between items-center px-6 md:px-8 py-7">
+            <a href="jessica-cui.html" class="flex items-center gap-3">
+                <span class="text-xl font-black tracking-[0.3em]">JESSICA CUI</span>
+                <span class="w-3 h-3 bg-black" style="clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%)" aria-hidden="true"></span>
+            </a>
+            <nav class="flex items-center gap-6 md:gap-10">
+                <a href="jessica-cui-work.html" class="text-[11px] font-bold tracking-[0.25em] hover:opacity-50 transition-opacity">WORK</a>
+                <a href="jessica-cui-about.html" class="text-[11px] font-bold tracking-[0.25em] opacity-45 hover:opacity-100 transition-opacity">ABOUT</a>
+                <div class="social-links" aria-label="Social links">
+                    <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.5" cy="6.6" r="1" fill="currentColor" stroke="none"></circle></svg>
+                    </a>
+                    <a href="https://www.artstation.com/jessica12312" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="ArtStation" title="ArtStation"><span class="social-monogram">AS</span></a>
+                    <a href="#" class="social-link" aria-label="TikTok" title="TikTok"><span class="social-monogram">♪</span></a>
+                    <a href="#" class="social-link" aria-label="Gmail" title="Gmail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="submenu" aria-label="Work category navigation">
+        <div class="submenu-left">
+            <div class="index-label"><span class="index-dot"></span> INDEX</div>
+            <nav class="filter-pills" aria-label="Filter work by category">
+                <a href="jessica-cui-work.html" class="filter-pill" data-work-filter="all">ALL</a>
+                <a href="jessica-cui-work.html?category=character-design" class="filter-pill" data-category="character-design">CHARACTER DESIGN</a>
+                <a href="jessica-cui-work.html?category=illustration" class="filter-pill" data-category="illustration">ILLUSTRATION</a>
+                <a href="jessica-cui-work.html?category=3d-modeling" class="filter-pill" data-category="3d-modeling">3D MODELING</a>
+            </nav>
+        </div>
+        <div class="submenu-caption">WORK PROJECTS</div>
+    </div>
+
+    
+            <main class="project-viewer-main"><a href="jessica-cui-work.html" class="project-back">← BACK TO WORK</a><section id="project-gallery" class="project-gallery" data-artwork-strip data-mobile-vertical-gallery aria-label="Continuous artwork gallery">
+    <div id="project-gallery-viewport" class="project-gallery-viewport"><div id="project-gallery-track" class="project-gallery-track"></div></div>
+    <div class="project-gallery-controls"><button id="project-previous" class="project-arrow" type="button" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5 8 12l7 7"/></svg></button><button id="project-next" class="project-arrow" type="button" aria-label="Next image"><svg data-next-arrow-icon viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5 16 12l-7 7"/></svg><svg data-return-first-icon viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M15 5 8 12l7 7"/></svg></button></div>
+  </section>
+      <section class="project-caption project-desktop-caption" aria-live="polite"><span data-project-category class="project-category"></span><h1 data-project-title>Loading work</h1><p data-project-description></p><span data-project-index class="project-count"></span></section>
+      <section id="project-mobile-gallery" class="project-mobile-gallery" aria-label="Project images"><div class="project-caption project-mobile-caption" aria-live="polite"><span data-project-category class="project-category"></span><h1 data-project-title>Loading work</h1><p data-project-overview></p></div><div id="project-mobile-images" class="project-mobile-images"></div></section>
+      <p id="project-status" class="cms-project-status" hidden></p></main>
+
+    <footer class="border-t border-black/10 px-6 md:px-8 py-8 flex justify-between items-center text-[10px] font-bold tracking-[0.2em] uppercase text-black/45">
+        <span>Jessica Cui Portfolio</span>
+        <div class="social-links" aria-label="Social links">
+            <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.5" cy="6.6" r="1" fill="currentColor" stroke="none"></circle></svg>
+            </a>
+            <a href="https://www.artstation.com/jessica12312" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="ArtStation" title="ArtStation"><span class="social-monogram">AS</span></a>
+            <a href="#" class="social-link" aria-label="TikTok" title="TikTok"><span class="social-monogram">♪</span></a>
+            <a href="#" class="social-link" aria-label="Gmail" title="Gmail">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
+            </a>
+        </div>
+    </footer>
+<script src="work-category-catalog.js?v=submenu-persist-20260929" defer></script>
+<script src="gallery-strip.js?v=project-mobile-vertical-20260928" defer></script>
+<script src="project-catalog.js?v=submenu-persist-20260929" defer></script>
+<script>/* artwork-zoom-enhancement */
+(() => {
+  const selectors = '#viewer-image, #slide-image, #illustration-image, #project-image';
+  const images = [...document.querySelectorAll(selectors)];
+  if ((!images.length && !document.querySelector('[data-artwork-strip]')) || document.querySelector('.artwork-zoom')) return;
+
+  const stageSelector = '.ratio-stage, .viewer-stage, .illustration-stage, .project-image-stage, .ratio-project-stage';
+  let activeImage = null;
+  let fitGeneration = 0;
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'artwork-zoom';
+  dialog.setAttribute('aria-label', 'Artwork detail viewer');
+  dialog.innerHTML = `
+    <div class="zoom-toolbar">
+      <span class="zoom-label">Artwork detail</span>
+      <button class="zoom-close" type="button" data-zoom-close>Close</button>
+    </div>
+    <div class="zoom-viewport" aria-label="Artwork image">
+      <img class="zoom-image" alt="" draggable="false">
+    </div>`;
+  document.body.append(dialog);
+
+  const viewport = dialog.querySelector('.zoom-viewport');
+  const zoomImage = dialog.querySelector('.zoom-image');
+  const closeButton = dialog.querySelector('[data-zoom-close]');
+
+  function fitToStage(image) {
+    const stage = image.closest(stageSelector);
+    if (!stage || !image.complete || !image.naturalWidth || !image.naturalHeight) return false;
+    const width = stage.clientWidth, height = stage.clientHeight;
+    if (!width || !height) return false;
+    const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+    image.style.width = `${image.naturalWidth * scale}px`;
+    image.style.height = `${image.naturalHeight * scale}px`;
+    image.style.maxWidth = 'none';
+    image.style.maxHeight = 'none';
+    image.style.transform = 'none';
+    image.style.visibility = 'visible';
+    image.dataset.fitState = 'fit';
+    if (dialog.open && activeImage === image) fitDetailImage();
+    return true;
+  }
+
+  function scheduleFit(image, generation = ++fitGeneration) {
+    if (!image.complete || !image.naturalWidth) return;
+    const decoded = typeof image.decode === 'function' ? image.decode().catch(() => {}) : Promise.resolve();
+    decoded.then(() => requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (generation === fitGeneration && image.isConnected) fitToStage(image);
+    })));
+  }
+
+  function resetArtworkFit(image = activeImage) {
+    if (!image) return;
+    activeImage = image;
+    image.style.transform = 'none';
+    image.style.width = '100%';
+    image.style.height = '100%';
+    image.style.maxWidth = '100%';
+    image.style.maxHeight = '100%';
+    const ready = image.complete && image.naturalWidth > 0;
+    image.style.visibility = ready ? 'visible' : 'hidden';
+    image.dataset.fitState = ready ? 'fit' : 'loading';
+    if (dialog.open) {
+      zoomImage.style.width = '';
+      zoomImage.style.height = '';
+      zoomImage.style.transform = 'translate(-50%, -50%)';
+      zoomImage.src = image.currentSrc || image.src;
+    }
+    if (!fitToStage(image)) scheduleFit(image);
+  }
+
+  function fitDetailImage() {
+    if (!activeImage?.naturalWidth || !zoomImage.naturalWidth) return;
+    const width = viewport.clientWidth, height = viewport.clientHeight;
+    if (!width || !height) return;
+    const scale = Math.min(width / zoomImage.naturalWidth, height / zoomImage.naturalHeight);
+    zoomImage.style.width = `${zoomImage.naturalWidth * scale}px`;
+    zoomImage.style.height = `${zoomImage.naturalHeight * scale}px`;
+    zoomImage.style.transform = 'translate(-50%, -50%)';
+  }
+
+  function openArtworkDetail(image) {
+    if (!image.complete || !image.naturalWidth) return;
+    activeImage = image;
+    zoomImage.alt = image.alt || 'Artwork';
+    zoomImage.style.width = '';
+    zoomImage.style.height = '';
+    zoomImage.style.transform = 'translate(-50%, -50%)';
+    zoomImage.src = image.currentSrc || image.src;
+    if (!dialog.open) dialog.showModal();
+    requestAnimationFrame(() => requestAnimationFrame(fitDetailImage));
+  }
+
+  window.openArtworkDetail = openArtworkDetail;
+  window.resetArtworkFit = resetArtworkFit;
+  zoomImage.addEventListener('load', () => requestAnimationFrame(() => requestAnimationFrame(fitDetailImage)));
+  images.forEach((image) => {
+    activeImage ||= image;
+    image.tabIndex = 0;
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-label', `${image.alt || 'Artwork'}. Open artwork detail`);
+    image.addEventListener('click', () => openArtworkDetail(image));
+    image.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openArtworkDetail(image); }
+    });
+    image.addEventListener('load', () => {
+      const generation = ++fitGeneration;
+      scheduleFit(image, generation);
+      if (dialog.open && activeImage === image) {
+        zoomImage.alt = image.alt || 'Artwork';
+        zoomImage.src = image.currentSrc || image.src;
+        requestAnimationFrame(() => requestAnimationFrame(fitDetailImage));
+      }
+    });
+    new MutationObserver(() => resetArtworkFit(image)).observe(image, { attributes: true, attributeFilter: ['src', 'srcset'] });
+    if (image.complete && image.naturalWidth) scheduleFit(image);
+    else {
+      image.style.width = '100%';
+      image.style.height = '100%';
+      image.style.visibility = 'hidden';
+      image.dataset.fitState = 'loading';
+    }
+  });
+
+  closeButton.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => activeImage?.focus({ preventScroll: true }));
+  document.addEventListener('keydown', (event) => {
+    if (!dialog.open || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  window.addEventListener('resize', () => {
+    if (activeImage?.dataset.fitState === 'fit') scheduleFit(activeImage);
+    if (dialog.open) fitDetailImage();
+  });
+})();
+
+</script></body>
+</html>

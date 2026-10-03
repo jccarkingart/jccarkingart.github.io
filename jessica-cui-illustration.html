@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Cui - Illustration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;family=Homemade+Apple&amp;display=swap" rel="stylesheet">
+    <style>
+        :root { color-scheme: light; --paper: #F6F3F0; --ink: #000; --muted: rgba(0,0,0,.42); }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; min-height: 100%; }
+        body { font-family: Inter, Arial, sans-serif; background: var(--paper); color: var(--ink); }
+        a { color: inherit; }
+        .site-header { display:flex; justify-content:space-between; align-items:center; padding:28px 48px; border-bottom:1px solid rgba(0,0,0,.1); }
+        .brand { display:flex; align-items:center; gap:12px; text-decoration:none; font-size:20px; font-weight:900; letter-spacing:.3em; }
+        .star { width:14px; height:14px; background:currentColor; clip-path:polygon(50% 0%,55% 45%,100% 50%,55% 55%,50% 100%,45% 55%,0% 50%,45% 45%); }
+        .site-nav { display:flex; align-items:center; gap:34px; }
+        .site-nav > a { font-size:11px; font-weight:800; letter-spacing:.25em; text-decoration:none; }
+        .site-nav > a:hover, .site-nav > a:focus-visible { opacity:.55; }
+        .social-links { display:flex; align-items:center; gap:12px; }
+        .social-link { width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; opacity:.8; }
+        .social-link:hover, .social-link:focus-visible { opacity:.45; transform:translateY(-1px); }
+        .social-link svg { width:19px; height:19px; display:block; }
+        .social-monogram { font-size:10px; font-weight:900; letter-spacing:-.08em; }
+        .star-hollow { width:14px; height:14px; background:currentColor; clip-path:polygon(50% 0%,55% 45%,100% 50%,55% 55%,50% 100%,45% 55%,0% 50%,45% 45%); }
+        .home-header { width:100%; padding:40px 48px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; color:#000; font-family:'Inter', sans-serif; }
+        .home-header-brand { display:flex; align-items:center; gap:12px; }
+        .home-brand { color:#000; text-decoration:none; font-size:1.25rem; line-height:1.75rem; font-weight:900; letter-spacing:.3em; }
+        .home-header-nav { display:flex; align-items:center; gap:56px; }
+        .home-header-nav > a { color:inherit; font-size:11px; font-weight:700; letter-spacing:.25em; text-decoration:none; }
+        .home-header-nav > a[aria-current="page"] { border-bottom:1px solid currentColor; padding-bottom:4px; }
+        .home-header-nav > a:hover, .home-header-nav > a:focus-visible { opacity:.5; }
+        .home-header .social-links { margin-left:4px; }
+        .home-header-end-star { margin-left:16px; }
+        .submenu { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:16px 32px; border-bottom:1px solid rgba(0,0,0,.1); }
+        .submenu-left { display:flex; align-items:center; flex-wrap:wrap; gap:20px; }
+        .index-label { display:flex; align-items:center; gap:8px; font-size:10px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; }
+        .index-dot { width:6px; height:6px; border-radius:50%; background:#000; }
+        .filter-pills { display:flex; flex-wrap:wrap; gap:24px; }
+        .filter-pill { border:0; border-radius:0; padding:0; background:transparent; color:rgba(0,0,0,.38); font-size:10px; font-weight:800; letter-spacing:.14em; line-height:1; text-decoration:none; transition:color .18s ease, opacity .18s ease; }
+        .filter-pill:hover, .filter-pill:focus-visible { color:#000; }
+        .filter-pill.active { color:#000; background:transparent; }
+        .index-label::before { content:'+'; color:rgba(0,0,0,.3); margin-right:2px; }
+        .submenu-caption { font-size:10px; font-weight:800; letter-spacing:.18em; opacity:.3; text-transform:uppercase; }
+        .page-main { min-height:calc(100vh - 174px); padding:28px 32px 42px; display:flex; flex-direction:column; }
+        .eyebrow { display:flex; align-items:center; gap:16px; margin-bottom:18px; font-size:10px; font-weight:900; letter-spacing:.4em; }
+        .eyebrow-line { width:64px; height:1px; background:rgba(0,0,0,.25); }
+        .slider-shell { width:min(1320px, 100%); flex:1; min-height:0; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) 112px; gap:16px; }
+        .slider-stage { position:relative; min-height:520px; overflow:hidden; background:#eee9e5; }
+        .slide { position:absolute; inset:0; display:grid; place-items:center; opacity:0; pointer-events:none; transition:opacity .35s ease; }
+        .slide.is-active { opacity:1; pointer-events:auto; }
+        .slide-art { position:relative; width:100%; height:100%; min-height:520px; overflow:hidden; display:flex; align-items:flex-end; padding:32px; }
+        .slide-art::before, .slide-art::after { content:""; position:absolute; pointer-events:none; }
+        .art-sun { background:#eadfbf; }
+        .art-sun::before { width:54%; aspect-ratio:1; border-radius:50%; background:#f4c84b; top:13%; left:23%; box-shadow:0 28px 80px rgba(112,75,0,.13); }
+        .art-sun::after { width:34%; height:48%; background:rgba(255,255,255,.5); border-radius:48% 48% 20% 20%; left:35%; top:31%; transform:rotate(12deg); }
+        .art-orbit { background:#d7dfe7; }
+        .art-orbit::before { width:65%; aspect-ratio:1; border:22px solid #a8b8c9; border-radius:50%; left:17%; top:11%; transform:rotate(-28deg); }
+        .art-orbit::after { width:32%; aspect-ratio:1; border-radius:50%; background:#f1a4a0; right:18%; bottom:18%; box-shadow:-130px -160px 0 -34px #f3cf82; }
+        .art-field { background:#c9d1c3; }
+        .art-field::before { width:85%; height:35%; background:#a5b39c; left:8%; bottom:12%; border-radius:50% 50% 0 0; transform:rotate(-8deg); }
+        .art-field::after { width:24%; aspect-ratio:1; border-radius:50%; background:#e9b6a0; left:38%; top:20%; box-shadow:120px 150px 0 -24px #d7a65d; }
+        .slide-meta { position:relative; z-index:2; color:#000; }
+        .slide-number { display:block; margin-bottom:10px; font-size:10px; font-weight:900; letter-spacing:.35em; opacity:.55; }
+        .slide-title { margin:0; font-size:clamp(34px, 6vw, 86px); line-height:.9; font-weight:900; letter-spacing:-.06em; text-transform:uppercase; }
+        .slide-caption { margin:14px 0 0; max-width:360px; font-size:11px; line-height:1.5; letter-spacing:.08em; opacity:.55; }
+        .slider-arrow { position:absolute; top:50%; z-index:4; width:64px; height:100px; border:0; background:rgba(247,243,240,.75); font-size:34px; line-height:1; cursor:pointer; opacity:0; transform:translateY(-50%); transition:opacity .2s ease, background .2s ease; }
+        .slider-arrow.is-visible, .slider-arrow:focus-visible { opacity:1; }
+        .slider-arrow:hover { background:#fff; }
+        .slider-arrow.left { left:0; }
+        .next-preview { position:relative; min-height:520px; overflow:hidden; background:#eee9e5; }
+        .next-preview-art { position:absolute; inset:0; display:block; transform:scale(1.08); }
+        .next-preview-label { position:absolute; left:10px; bottom:10px; z-index:2; color:#000; font-size:9px; font-weight:900; letter-spacing:.12em; }
+        .next-preview-button { position:absolute; z-index:3; top:50%; left:50%; width:52px; height:52px; border:0; transform:translate(-50%, -50%); background:rgba(0,0,0,.72); color:#fff; font-size:28px; line-height:1; cursor:pointer; opacity:0; transition:opacity .2s ease, background .2s ease; }
+        .next-preview:hover .next-preview-button, .next-preview-button:focus-visible { opacity:1; }
+        .next-preview-button:hover { background:#000; }
+        .slider-footer { display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:10px; font-weight:800; letter-spacing:.2em; opacity:.45; text-transform:uppercase; }
+        @media (max-width: 720px) {
+            .site-header { padding:22px 20px; }
+            .brand { font-size:15px; }
+            .site-nav { gap:14px; }
+            .site-nav > a { font-size:9px; }
+            .social-links { display:none; }
+            .submenu { padding:14px 20px; align-items:flex-start; flex-direction:column; }
+            .page-main { padding:20px; }
+            .slider-shell { grid-template-columns:1fr; }
+            .slider-stage, .slide-art { min-height:62vh; }
+            .next-preview { min-height:90px; height:90px; }
+            .next-preview-art { transform:scale(1.12); }
+            .next-preview-button { opacity:1; width:44px; height:44px; }
+            .slider-arrow { opacity:1; width:48px; height:72px; }
+        }
+        .slide-art.cms-art::before, .slide-art.cms-art::after { display:none; }
+        .cms-slide-image { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
+        .cms-art .slide-meta { padding:14px 18px; background:rgba(246,243,240,.88); }
+        .cms-view-project { display:inline-block; margin-top:18px; font-size:10px; font-weight:900; letter-spacing:.2em; text-decoration:none; }
+        .next-preview-art { background-position:center; background-size:cover; }
+        .slider-shell:has(.next-preview[hidden]) { grid-template-columns:1fr; }
+        .cms-empty-gallery { position:absolute; left:40px; bottom:40px; font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }
+        .illustration-viewer { width:min(1500px,100%); margin:auto; display:grid; grid-template-columns:64px minmax(0,1fr) 64px; align-items:center; gap:18px; }
+        .illustration-stage { height:clamp(340px,66svh,780px); min-height:0; overflow:hidden; background:#202020; display:grid; place-items:center; }
+        .illustration-stage img { display:block; width:100%; height:100%; object-fit:contain; object-position:center; }
+        .illustration-caption { width:min(1500px,100%); margin:20px auto 0; display:grid; grid-template-columns:1fr auto; gap:8px 24px; align-items:end; }
+        .illustration-caption .slide-number { grid-column:1/-1; margin:0; }
+        .illustration-caption .slide-title { grid-column:1; font-size:clamp(28px,4vw,58px); line-height:.98; }
+        .illustration-caption .slide-caption { grid-column:1; margin:0; max-width:600px; }
+        .illustration-caption .cms-view-project { grid-column:2; grid-row:2/4; align-self:center; }
+        .page-main .viewer-arrow { width:56px; height:72px; border:1px solid rgba(0,0,0,.18); background:#f7f3f0; color:#111; font-size:30px; cursor:pointer; }
+        .page-main .viewer-arrow:hover:not(:disabled),.page-main .viewer-arrow:focus-visible { background:#111; color:#fff; }
+        .page-main .viewer-arrow:disabled { opacity:.2; cursor:default; }
+        @media (max-width:720px) {
+          .illustration-viewer { grid-template-columns:1fr 1fr; gap:10px; }
+          .illustration-stage { grid-column:1/-1; grid-row:1; height:clamp(340px,58svh,620px); }
+          .illustration-viewer .viewer-arrow { width:100%; height:52px; font-size:25px; }
+          .illustration-caption { grid-template-columns:1fr; margin-top:15px; }
+          .illustration-caption .cms-view-project { grid-column:1; grid-row:auto; justify-self:start; margin-top:8px; }
+          .illustration-caption .slide-title { font-size:clamp(28px,9vw,46px); }
+        }
+    
+        
+        
+        
+        
+        /* artwork-viewer-upgrade */
+        .ratio-stage, .viewer-stage, .illustration-stage, .project-image-stage, .ratio-project-stage {
+          position: relative; display: grid; place-items: center; height: clamp(300px, 76svh, 900px); min-height: 0; overflow: hidden; background: var(--paper);
+        }
+        .ratio-stage .slide, .ratio-art { display: grid; place-items: center; background: var(--paper); }
+        .ratio-stage img, .viewer-stage img, .illustration-stage img, .project-image-stage img, .ratio-project-stage img {
+          position: relative; inset: auto; display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+          object-fit: contain; object-position: center; background: var(--paper); transform: none; visibility: visible; cursor: zoom-in;
+        }
+        .ratio-stage img[data-fit-state="loading"], .viewer-stage img[data-fit-state="loading"], .illustration-stage img[data-fit-state="loading"], .project-image-stage img[data-fit-state="loading"], .ratio-project-stage img[data-fit-state="loading"] { visibility: hidden; }
+        .ratio-arrow, .viewer-arrow, .project-arrow { background: var(--paper); }
+        .ratio-arrow[hidden], .viewer-arrow[hidden], .project-arrow[hidden] { display: none !important; }
+        #viewer-image:focus-visible, #slide-image:focus-visible, #illustration-image:focus-visible, #project-image:focus-visible {
+          outline: 2px solid currentColor; outline-offset: 3px;
+        }
+        .artwork-zoom[open] {
+          position: fixed; inset: 3vh 2vw; width: auto; height: auto; max-width: none; max-height: none; margin: 0;
+          padding: 14px; border: 0; display: flex; flex-direction: column; gap: 10px; overflow: hidden;
+          background: var(--paper); color: var(--ink, #111);
+        }
+        .artwork-zoom::backdrop { background: rgba(0,0,0,.76); }
+        .zoom-toolbar { min-height: 42px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .zoom-label { font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+        .zoom-close { min-width: 64px; min-height: 38px; padding: 7px 14px; border: 1px solid currentColor; background: var(--paper); color: inherit; cursor: pointer; }
+        .zoom-close:hover, .zoom-close:focus-visible { background: var(--ink, #111); color: var(--paper); }
+        .zoom-viewport { position: relative; flex: 1; min-width: 0; min-height: 0; overflow: hidden; overscroll-behavior: contain; background: var(--paper); }
+        .zoom-image { position: absolute; left: 50%; top: 50%; display: block; max-width: none; max-height: none; object-fit: contain; object-position: center; transform: translate(-50%, -50%); user-select: none; }
+        @media (max-width: 720px) {
+          .ratio-stage, .viewer-stage, .illustration-stage, .project-image-stage, .ratio-project-stage { height: clamp(280px, 58svh, 620px); }
+          .artwork-zoom[open] { inset: 1vh 1vw; padding: 8px; }
+          .zoom-toolbar { align-items: center; flex-direction: row; gap: 7px; }
+        }
+
+    </style>
+<style id="project-gallery-layout">
+/* project-gallery-layout: larger-equal-height-continuous-strip-20260929 */
+.project-viewer-main{flex:1;min-height:0;width:100%;padding:8px clamp(16px,2.2vw,36px) 22px;display:flex;flex-direction:column;background:var(--paper)}
+.project-back{width:min(1600px,100%);margin:0 auto 10px;font-size:10px;font-weight:900;letter-spacing:.2em;text-decoration:none;color:inherit}
+.character-slider{min-width:0}
+.project-gallery{position:relative;width:min(1600px,100%);margin:0 auto}
+.project-gallery-viewport{position:relative;width:100%;height:clamp(320px,80svh,860px);min-height:0;overflow:hidden;background:var(--paper);touch-action:pan-y}
+.project-gallery-track{position:absolute;left:0;top:0;height:100%;display:flex;align-items:center;gap:clamp(12px,1.5vw,22px);width:max-content;will-change:transform;transition:none!important}
+.project-gallery[data-loading="true"] .project-gallery-track{visibility:hidden}
+.project-gallery[data-animating="true"] .project-gallery-track{pointer-events:none}
+.project-gallery-slide{position:relative;flex:0 0 auto;height:100%;display:flex;align-items:center;justify-content:center;min-width:0;cursor:pointer;outline:none;opacity:.56;transition:opacity 460ms ease}
+.project-gallery-slide[data-in-viewport="false"]{opacity:0}
+.project-gallery-slide[data-active="true"]:not([data-in-viewport="false"]){opacity:1}
+.project-gallery-slide[data-in-viewport="true"]:not([data-active="true"]){opacity:.56}
+.project-gallery-slide[hidden]{display:none!important}
+.project-image-stage{position:relative;display:grid;place-items:center;flex:none;width:auto;height:auto;min-width:0;min-height:0;overflow:hidden;background:var(--paper)}
+.project-image-stage img{position:relative;inset:auto;display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:center;background:var(--paper);transform:none;cursor:pointer;user-select:none}
+.project-gallery-slide[data-active="true"] img{cursor:zoom-in}
+.project-gallery-slide:focus-visible .project-image-stage{outline:2px solid currentColor;outline-offset:4px}
+.project-gallery-controls{position:absolute;inset:0;z-index:4;pointer-events:none}
+.project-gallery .project-arrow{position:absolute;top:50%;left:8px;width:50px;height:50px;display:grid;place-items:center;padding:0;border:0;background:#111;color:#fff;line-height:0;cursor:pointer;opacity:0;pointer-events:auto;transform:translateY(-50%);transition:opacity 160ms ease}
+.project-gallery .project-arrow svg{display:block;width:20px;height:20px;overflow:visible}
+.project-gallery .project-arrow svg[hidden]{display:none!important}
+.project-gallery .project-arrow svg path{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.project-gallery .project-arrow:last-child{left:auto;right:8px}
+.project-gallery:hover .project-arrow:not([hidden]),.project-gallery:focus-within .project-arrow:not([hidden]){opacity:1}
+.project-gallery .project-arrow:disabled{cursor:default}
+.project-gallery .project-arrow:focus-visible{outline:2px solid #111;outline-offset:3px;opacity:1}
+.project-gallery .project-arrow[hidden]{display:none!important}
+.project-caption{width:min(1600px,100%);margin:14px auto 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 24px;align-items:end}
+.project-category{grid-column:1/-1;font-size:10px;font-weight:900;letter-spacing:.24em;text-transform:uppercase;color:#777}
+.project-caption h1{grid-column:1;margin:0;font-size:clamp(30px,4.6vw,60px);line-height:.95;letter-spacing:-.055em}
+.project-caption p{grid-column:1;margin:0;max-width:680px;font-size:13px;line-height:1.55;color:#666}
+.project-caption h1,.project-caption p,.viewer-caption .slide-title,.viewer-caption .slide-caption{grid-column:1;justify-self:start;width:100%;margin-inline:0;padding-inline:0;text-align:left}
+.viewer-caption .slide-title,.viewer-caption .slide-caption{display:block}
+.project-count{grid-column:2;grid-row:2/4;font-size:10px;font-weight:900;letter-spacing:.2em;white-space:nowrap}
+.cms-project-status{width:min(1600px,100%);margin:12px auto 0}
+@media(max-width:720px){
+.project-viewer-main{padding:8px 14px 20px}
+.project-gallery{display:flex;flex-direction:column;gap:8px}
+.project-gallery-viewport{height:clamp(260px,54svh,600px)}
+.project-gallery-controls{position:static;display:flex;gap:10px;pointer-events:auto}
+.project-gallery .project-arrow{position:relative;top:auto;left:auto;right:auto;flex:1;width:auto;height:46px;transform:none;opacity:1}
+.project-gallery .project-arrow:last-child{left:auto;right:auto}
+.project-caption{grid-template-columns:1fr}
+.project-caption h1{font-size:clamp(28px,8vw,46px)}
+.project-count{grid-column:1;grid-row:auto}
+}
+@media(prefers-reduced-motion:reduce){.project-gallery-slide{transition-duration:0s}}
+</style><style id="portfolio-video-gallery">.project-image-stage video{position:relative;inset:auto;display:block;flex:none;max-width:none;max-height:none;object-fit:contain;object-position:center;background:var(--paper);user-select:none}.project-image-stage video[data-fit-state="loading"]{visibility:hidden}</style><link rel="stylesheet" href="work-category-menu.css?v=mobile-project-detail-20260929"><script src="portfolio-data.js"></script><script src="static-api.js"></script></head>
+<body data-work-category="illustration">
+    <header class="home-header">
+        <div class="home-header-brand">
+            <a href="jessica-cui.html" class="home-brand">JESSICA CUI</a>
+            <div class="star-hollow text-black"></div>
+        </div>
+        <nav class="home-header-nav">
+            <a href="jessica-cui-work.html" aria-current="page">WORK</a>
+            <a href="jessica-cui-about.html">ABOUT</a>
+            <div class="social-links" aria-label="Social links">
+                <a href="#" class="social-link" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.5" cy="6.6" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+                <a href="https://www.artstation.com/jessica12312" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="ArtStation" title="ArtStation"><span class="social-monogram">AS</span></a>
+                <a href="#" class="social-link" aria-label="TikTok" title="TikTok"><span class="social-monogram">♪</span></a>
+                <a href="#" class="social-link" aria-label="Gmail" title="Gmail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg></a>
+            </div>
+            <div class="star-hollow home-header-end-star"></div>
+        </nav>
+    </header>
+
+    <div class="submenu" aria-label="Work category navigation">
+        <div class="submenu-left">
+            <div class="index-label"><span class="index-dot"></span> INDEX</div>
+            <nav class="filter-pills" aria-label="Filter work by category">
+                <a href="jessica-cui-work.html" class="filter-pill">ALL</a>
+                <a href="jessica-cui-work.html?category=character-design" class="filter-pill" data-category="character-design">CHARACTER DESIGN</a>
+                <a href="jessica-cui-work.html?category=illustration" class="filter-pill active" data-category="illustration" aria-current="page">ILLUSTRATION</a>
+                <a href="jessica-cui-work.html?category=3d-modeling" class="filter-pill" data-category="3d-modeling">3D MODELING</a>
+            </nav>
+        </div>
+        <div class="submenu-caption">ILLUSTRATION SLIDER</div>
+    </div>
+
+    
+    <main class="page-main" aria-label="Illustration project gallery">
+        <section id="project-gallery" class="project-gallery" data-artwork-strip aria-label="Continuous artwork gallery">
+    <div id="project-gallery-viewport" class="project-gallery-viewport"><div id="project-gallery-track" class="project-gallery-track"></div></div>
+    <div class="project-gallery-controls"><button id="previous" class="project-arrow" type="button" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5 8 12l7 7"/></svg></button><button id="next" class="project-arrow" type="button" aria-label="Next image"><svg data-next-arrow-icon viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5 16 12l-7 7"/></svg><svg data-return-first-icon viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M15 5 8 12l7 7"/></svg></button></div>
+  </section>
+        <section class="illustration-caption" aria-live="polite">
+            <span class="slide-number" id="slide-number"></span>
+            <h1 class="slide-title" id="slide-title">Loading work</h1>
+            <p class="slide-caption" id="slide-caption"></p>
+            <a class="cms-view-project" id="view-project" href="#">VIEW ALL IMAGES →</a>
+        </section>
+        <div class="slider-footer"><span>Use the arrows or side previews to explore</span><span id="counter">00 / 00</span></div>
+    </main>
+<script src="gallery-strip.js?v=mp4-gallery-20260927" defer></script>
+<script src="work-category-catalog.js?v=submenu-persist-20260929" defer></script>
+<script>/* artwork-zoom-enhancement */
+(() => {
+  const selectors = '#viewer-image, #slide-image, #illustration-image, #project-image';
+  const images = [...document.querySelectorAll(selectors)];
+  if ((!images.length && !document.querySelector('[data-artwork-strip]')) || document.querySelector('.artwork-zoom')) return;
+
+  const stageSelector = '.ratio-stage, .viewer-stage, .illustration-stage, .project-image-stage, .ratio-project-stage';
+  let activeImage = null;
+  let fitGeneration = 0;
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'artwork-zoom';
+  dialog.setAttribute('aria-label', 'Artwork detail viewer');
+  dialog.innerHTML = `
+    <div class="zoom-toolbar">
+      <span class="zoom-label">Artwork detail</span>
+      <button class="zoom-close" type="button" data-zoom-close>Close</button>
+    </div>
+    <div class="zoom-viewport" aria-label="Artwork image">
+      <img class="zoom-image" alt="" draggable="false">
+    </div>`;
+  document.body.append(dialog);
+
+  const viewport = dialog.querySelector('.zoom-viewport');
+  const zoomImage = dialog.querySelector('.zoom-image');
+  const closeButton = dialog.querySelector('[data-zoom-close]');
+
+  function fitToStage(image) {
+    const stage = image.closest(stageSelector);
+    if (!stage || !image.complete || !image.naturalWidth || !image.naturalHeight) return false;
+    const width = stage.clientWidth, height = stage.clientHeight;
+    if (!width || !height) return false;
+    const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+    image.style.width = `${image.naturalWidth * scale}px`;
+    image.style.height = `${image.naturalHeight * scale}px`;
+    image.style.maxWidth = 'none';
+    image.style.maxHeight = 'none';
+    image.style.transform = 'none';
+    image.style.visibility = 'visible';
+    image.dataset.fitState = 'fit';
+    if (dialog.open && activeImage === image) fitDetailImage();
+    return true;
+  }
+
+  function scheduleFit(image, generation = ++fitGeneration) {
+    if (!image.complete || !image.naturalWidth) return;
+    const decoded = typeof image.decode === 'function' ? image.decode().catch(() => {}) : Promise.resolve();
+    decoded.then(() => requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (generation === fitGeneration && image.isConnected) fitToStage(image);
+    })));
+  }
+
+  function resetArtworkFit(image = activeImage) {
+    if (!image) return;
+    activeImage = image;
+    image.style.transform = 'none';
+    image.style.width = '100%';
+    image.style.height = '100%';
+    image.style.maxWidth = '100%';
+    image.style.maxHeight = '100%';
+    const ready = image.complete && image.naturalWidth > 0;
+    image.style.visibility = ready ? 'visible' : 'hidden';
+    image.dataset.fitState = ready ? 'fit' : 'loading';
+    if (dialog.open) {
+      zoomImage.style.width = '';
+      zoomImage.style.height = '';
+      zoomImage.style.transform = 'translate(-50%, -50%)';
+      zoomImage.src = image.currentSrc || image.src;
+    }
+    if (!fitToStage(image)) scheduleFit(image);
+  }
+
+  function fitDetailImage() {
+    if (!activeImage?.naturalWidth || !zoomImage.naturalWidth) return;
+    const width = viewport.clientWidth, height = viewport.clientHeight;
+    if (!width || !height) return;
+    const scale = Math.min(width / zoomImage.naturalWidth, height / zoomImage.naturalHeight);
+    zoomImage.style.width = `${zoomImage.naturalWidth * scale}px`;
+    zoomImage.style.height = `${zoomImage.naturalHeight * scale}px`;
+    zoomImage.style.transform = 'translate(-50%, -50%)';
+  }
+
+  function openArtworkDetail(image) {
+    if (!image.complete || !image.naturalWidth) return;
+    activeImage = image;
+    zoomImage.alt = image.alt || 'Artwork';
+    zoomImage.style.width = '';
+    zoomImage.style.height = '';
+    zoomImage.style.transform = 'translate(-50%, -50%)';
+    zoomImage.src = image.currentSrc || image.src;
+    if (!dialog.open) dialog.showModal();
+    requestAnimationFrame(() => requestAnimationFrame(fitDetailImage));
+  }
+
+  window.openArtworkDetail = openArtworkDetail;
+  window.resetArtworkFit = resetArtworkFit;
+  zoomImage.addEventListener('load', () => requestAnimationFrame(() => requestAnimationFrame(fitDetailImage)));
+  images.forEach((image) => {
+    activeImage ||= image;
+    image.tabIndex = 0;
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-label', `${image.alt || 'Artwork'}. Open artwork detail`);
+    image.addEventListener('click', () => openArtworkDetail(image));
+    image.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openArtworkDetail(image); }
+    });
+    image.addEventListener('load', () => {
+      const generation = ++fitGeneration;
+      scheduleFit(image, generation);
+      if (dialog.open && activeImage === image) {
+        zoomImage.alt = image.alt || 'Artwork';
+        zoomImage.src = image.currentSrc || image.src;
+        requestAnimationFrame(() => requestAnimationFrame(fitDetailImage));
+      }
+    });
+    new MutationObserver(() => resetArtworkFit(image)).observe(image, { attributes: true, attributeFilter: ['src', 'srcset'] });
+    if (image.complete && image.naturalWidth) scheduleFit(image);
+    else {
+      image.style.width = '100%';
+      image.style.height = '100%';
+      image.style.visibility = 'hidden';
+      image.dataset.fitState = 'loading';
+    }
+  });
+
+  closeButton.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => activeImage?.focus({ preventScroll: true }));
+  document.addEventListener('keydown', (event) => {
+    if (!dialog.open || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  window.addEventListener('resize', () => {
+    if (activeImage?.dataset.fitState === 'fit') scheduleFit(activeImage);
+    if (dialog.open) fitDetailImage();
+  });
+})();
+
+</script></body>
+</html>

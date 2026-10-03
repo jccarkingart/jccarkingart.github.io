@@ -1,0 +1,243 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Jessica Cui - Character Concept Artist</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;family=Homemade+Apple&amp;display=swap" rel="stylesheet" vid="6">
+    <script src="https://unpkg.com/@phosphor-icons/web" vid="7"></script>
+    <style vid="8">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F6F3F0;
+            color: #000000;
+        }
+        .font-handwriting {
+            font-family: 'Homemade Apple', cursive;
+        }
+        .letter-spacing-wide {
+            letter-spacing: 0.2em;
+        }
+        .letter-spacing-v-wide {
+            letter-spacing: 0.4em;
+        }
+        .star-decoration {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: black;
+            clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+        }
+        .star-hollow {
+            width: 14px;
+            height: 14px;
+            background: currentColor;
+            clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+        }
+        .work-viewer {
+            position: relative;
+            width: 100%;
+            max-width: 20rem;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            text-decoration: none;
+        }
+        .work-viewer:hover,
+        .work-viewer:focus-visible { opacity: .62; }
+        .work-viewer .viewer-star {
+            position: absolute;
+            margin: 0;
+        }
+        .work-viewer .viewer-star:nth-of-type(1) { top: 15px; left: -7px; }
+        .work-viewer .viewer-star:nth-of-type(2) { top: 15px; right: -7px; }
+        .work-viewer .viewer-star:nth-of-type(3) { bottom: 15px; left: -7px; }
+        .work-viewer .viewer-star:nth-of-type(4) { right: -7px; bottom: 15px; }
+        .work-viewer-label { font-size: 11px; font-weight: 900; letter-spacing: .22em; }
+        @media (max-width: 640px) {
+            .work-viewer { height: 90px; }
+        }
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .social-link {
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            opacity: .8;
+            transition: opacity .2s ease, transform .2s ease;
+        }
+        .social-link:hover,
+        .social-link:focus-visible {
+            opacity: .45;
+            transform: translateY(-1px);
+        }
+        .social-link:focus-visible { outline: 1px solid #000; outline-offset: 4px; }
+        .social-link svg { width: 19px; height: 19px; display: block; }
+        .social-monogram { font-size: 10px; font-weight: 900; letter-spacing: -.08em; }
+        .hero-section { position: relative; background: #F6F3F0; }
+        .hero-character { display: block; position: absolute; left: 54%; top: -11%; width: auto; height: 129%; max-width: none; max-height: none; transform: translateX(-50%) scale(var(--hero-artwork-scale, 1)); transform-origin: 50% 50%; z-index: 10; pointer-events: none; user-select: none; }
+        @media (max-width: 640px) {
+            :root { --home-mobile-gutter: 20px; }
+            body.w-full.h-screen.flex.flex-col.overflow-hidden { height: auto; min-height: 100vh; min-height: 100svh; overflow-x: hidden; overflow-y: auto; }
+            header.w-full { min-height: 0; padding: 18px var(--home-mobile-gutter) 12px !important; gap: 12px; flex-wrap: wrap; align-items: center; }
+            header > div:first-child { gap: 7px !important; }
+            header > div:first-child > span { font-size: 15px !important; letter-spacing: .2em !important; }
+            header nav { width: 100%; justify-content: space-between; gap: 12px !important; flex-wrap: wrap; }
+            header nav > a { font-size: 9px !important; letter-spacing: .16em !important; }
+            header nav .social-links { gap: 7px; margin-left: 0 !important; }
+            header nav .social-link { width: 19px; height: 19px; }
+            header nav .social-link svg { width: 16px; height: 16px; }
+            header nav > .star-hollow:last-child { display: none; }
+            .hero-section { flex: 0 0 auto !important; display: flex; flex-direction: column; gap: 0; padding: 24px var(--home-mobile-gutter) 32px !important; overflow: visible !important; }
+            .hero-section > div:first-child { width: 100% !important; padding-bottom: 0 !important; align-items: center; text-align: center; }
+            .hero-section > div:first-child > div:first-child { width: 100%; justify-content: center; gap: 0 !important; margin-bottom: 16px !important; }
+            .hero-section > div:first-child > div:first-child > span { display: block; width: 100%; font-size: 9px !important; letter-spacing: .22em !important; text-align: center; }
+            .hero-section > div:first-child > div:first-child > div { display: none !important; }
+            .hero-section h1 { max-width: 100%; margin: 0 auto 20px !important; font-size: clamp(38px, 10vw, 48px) !important; line-height: 1 !important; letter-spacing: -.06em !important; text-align: center; }
+            .hero-section > div:first-child > p { max-width: 36ch; margin: 0 auto 10px !important; font-size: 14px !important; line-height: 1.6 !important; text-align: center; }
+            .hero-section .work-viewer { align-self: center; width: min(100%, 260px); height: 72px; margin: 4px auto 8px; }
+            .hero-section .work-viewer .viewer-star:nth-of-type(1) { left: 2px; top: 8px; }
+            .hero-section .work-viewer .viewer-star:nth-of-type(2) { right: 2px; top: 8px; }
+            .hero-section .work-viewer .viewer-star:nth-of-type(3) { left: 2px; bottom: 8px; }
+            .hero-section .work-viewer .viewer-star:nth-of-type(4) { right: 2px; bottom: 8px; }
+            .hero-character { position: relative !important; inset: auto !important; left: auto !important; top: auto !important; display: block; width: auto; height: clamp(260px, 38svh, 350px); max-width: 100%; max-height: none; margin: 0 auto 6px; transform: scale(var(--hero-artwork-scale, 1)) !important; transform-origin: center center; }
+            .hero-section > div:last-child { position: relative !important; inset: auto !important; width: 100% !important; height: auto !important; margin: 0 !important; padding: 0 !important; display: flex !important; flex-direction: column; align-items: stretch; }
+            .hero-section > div:last-child > div.absolute { position: relative !important; inset: auto !important; width: 100%; margin: 0 auto 24px !important; opacity: .55; text-align: center; }
+            .hero-section > div:last-child > div.absolute .star-hollow { margin-bottom: 7px !important; }
+            #home-featured-projects { display: flex; flex-direction: column; align-items: stretch; gap: 18px !important; width: 100%; margin: 0; }
+            #home-featured-projects > a { width: 100%; min-width: 0; min-height: 84px; gap: 16px !important; }
+            #home-featured-projects > a > div:first-child { width: 84px !important; height: 84px !important; flex: 0 0 84px; padding: 5px !important; }
+            #home-featured-projects > a > div:last-child { min-width: 0; flex: 1; }
+            #home-featured-projects > a > div:last-child > span { display: block; margin-bottom: 8px !important; overflow-wrap: anywhere; font-size: 9px !important; line-height: 1.5 !important; letter-spacing: .2em !important; }
+            #home-featured-projects > a > div:last-child > p { margin: 0; font-size: 9px !important; letter-spacing: .12em !important; }
+            footer[aria-label="Page navigation"] { min-height: 12px; padding: 12px var(--home-mobile-gutter); }
+            footer[aria-label="Page navigation"] > * { display: none !important; }
+        }
+    </style>
+<script src="portfolio-data.js"></script><script src="static-api.js"></script></head>
+<body class="w-full h-screen flex flex-col overflow-hidden select-none" vid="9">
+
+    
+    <header class="w-full px-12 py-10 flex justify-between items-center z-50" vid="10">
+        <div class="flex items-center gap-3" vid="11">
+            <span class="text-xl font-black tracking-[0.3em]" vid="12">JESSICA CUI</span>
+            <div class="star-hollow text-black" vid="13"></div>
+        </div>
+        <nav class="flex items-center gap-14" vid="14">
+            <a href="jessica-cui-work.html" class="text-[11px] font-bold tracking-[0.25em] hover:opacity-50 transition-opacity" vid="15">WORK</a>
+            <a href="jessica-cui-about.html" class="text-[11px] font-bold tracking-[0.25em] hover:opacity-50 transition-opacity" vid="16">ABOUT</a>
+            <div class="social-links ml-1" aria-label="Social links" vid="17">
+                <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.5" cy="6.6" r="1" fill="currentColor" stroke="none"></circle></svg>
+                </a>
+                <a href="https://www.artstation.com/jessica12312" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="ArtStation" title="ArtStation"><span class="social-monogram">AS</span></a>
+                <a href="#" class="social-link" aria-label="TikTok" title="TikTok"><span class="social-monogram">♪</span></a>
+                <a href="#" class="social-link" aria-label="Gmail" title="Gmail">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                </a>
+            </div>
+            <div class="star-hollow text-black ml-4" vid="18"></div>
+        </nav>
+    </header>
+
+    
+    <main class="hero-section flex-1 relative flex px-12" vid="19">
+        
+        
+        <div class="w-1/3 flex flex-col justify-center pb-24 z-20" vid="20">
+            <div class="flex items-center gap-4 mb-10" vid="21">
+                <span class="text-[10px] font-bold tracking-[0.3em] text-black" vid="22">CHARACTER CONCEPT ARTIST</span>
+                <div class="h-[1px] w-12 bg-black" vid="23"></div>
+            </div>
+            
+            <h1 class="text-8xl font-black leading-[0.95] mb-10 tracking-tighter" vid="24">
+                Worlds begin<br vid="25">with a character.
+            </h1>
+            
+            <p class="text-[13px] leading-relaxed text-black/60 font-medium max-w-xs mb-10" vid="26">
+                Expressive characters for imaginative worlds. From first sketches to final designs, I create people who make stories feel alive.
+            </p>
+            
+            <a href="jessica-cui-work.html" class="work-viewer" aria-label="View work" vid="27">
+                <span class="star-hollow viewer-star" aria-hidden="true"></span>
+                <span class="star-hollow viewer-star" aria-hidden="true"></span>
+                <span class="star-hollow viewer-star" aria-hidden="true"></span>
+                <span class="star-hollow viewer-star" aria-hidden="true"></span>
+                <span class="work-viewer-label" vid="28">VIEW WORK</span>
+            </a>
+
+            
+        </div>
+
+        
+        <img class="hero-character" src="media/hero.webp" alt="Character concept artwork">
+
+        
+        <div class="w-2/3 ml-auto flex justify-end items-center relative z-20 pr-12 h-full" vid="52">
+            
+            
+            <div class="absolute top-[15%] right-[40%] text-center opacity-40" vid="53">
+                <div class="star-hollow text-black mx-auto mb-4" vid="54"></div>
+                <p class="text-[9px] font-bold tracking-[0.3em] leading-relaxed text-black" vid="55">
+                    SAME PEOPLE<br vid="56">DIFFERENT WORLDS<br vid="57">ALWAYS A STORY.
+                </p>
+            </div>
+
+            
+            <div id="home-featured-projects" class="flex flex-col gap-12"></div>
+        </div>
+
+    </main>
+
+    <footer class="w-full px-12 py-8 border-t border-black/5 flex items-center z-0 bg-[#F6F3F0] shrink-0" aria-label="Page navigation">
+        <div class="w-1/3 flex items-center gap-5">
+            <div class="flex items-center gap-3 opacity-30">
+                <div class="w-2 h-2 border border-black/20 rotate-45"></div>
+                <span class="invisible text-[11px] font-black tracking-widest" aria-hidden="true">01</span>
+            </div>
+            <div class="opacity-30">
+                <p class="invisible text-[11px] font-black tracking-[0.2em]" aria-hidden="true">THE WANDERER</p>
+            </div>
+        </div>
+
+        <div class="w-px h-10 bg-black/5"></div>
+
+        <div class="flex-1 px-14 flex items-center gap-5">
+            <div class="flex items-center gap-3">
+                <div class="invisible w-2 h-2 bg-black rotate-45" aria-hidden="true"></div>
+                <span class="invisible text-[11px] font-black tracking-widest" aria-hidden="true">HOME</span>
+            </div>
+            <div>
+                <p class="invisible text-[11px] font-black tracking-[0.2em]" aria-hidden="true">THE ARTIST</p>
+                <p class="invisible text-[10px] text-black/40 font-bold tracking-wider" aria-hidden="true">Character Concept Artist</p>
+            </div>
+        </div>
+
+        <div class="w-px h-10 bg-black/5"></div>
+
+        <div class="flex-1 px-14 flex items-center gap-5 opacity-30">
+            <span class="invisible text-[11px] font-black tracking-widest" aria-hidden="true">03</span>
+            <div>
+                <p class="invisible text-[11px] font-black tracking-[0.2em]" aria-hidden="true">OTHER WORLDS</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-8 ml-auto">
+            <div class="invisible flex gap-2" aria-hidden="true">
+                <div class="w-1.5 h-1.5 border border-black/20"></div>
+                <div class="w-1.5 h-1.5 bg-black"></div>
+                <div class="w-1.5 h-1.5 border border-black/20"></div>
+            </div>
+            <span class="invisible text-[11px] font-black tracking-widest" aria-hidden="true">01 / 03</span>
+        </div>
+    </footer>
+
+    <script src="home-featured.js?v=character-design-only-20260930" defer></script>
+</body></html>

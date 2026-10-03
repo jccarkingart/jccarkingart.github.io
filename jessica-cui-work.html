@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Jessica Cui — Work</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;family=Homemade+Apple&amp;display=swap" rel="stylesheet" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:italic&amp;display=swap" rel="stylesheet">
+    <style vid="7">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F6F3F0;
+            color: #1a1a1a;
+        }
+        .serif-italic {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+        }
+        .grid-line-v {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: rgba(0,0,0,0.06);
+            z-index: 0;
+        }
+        .grid-line-h {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: rgba(0,0,0,0.06);
+            z-index: 0;
+        }
+        .plus-icon {
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            pointer-events: none;
+        }
+        .plus-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: #000;
+        }
+        .plus-icon::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: #000;
+        }
+        
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+            gap: 0;
+            border-left: 1px solid rgba(0,0,0,0.06);
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        
+        .bento-cell {
+            border-right: 1px solid rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            position: relative;
+            padding: 2rem;
+            transition: background-color 0.4s ease;
+        }
+        
+        .bento-cell:hover {
+            background-color: #f2f1ed;
+        }
+        .project-bento-card:focus-visible {
+            outline: 2px solid #000;
+            outline-offset: -2px;
+        }
+
+        .bg-text {
+            font-size: 18vw;
+            line-height: 1;
+            font-weight: 900;
+            color: rgba(0,0,0,0.02);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: -0.05em;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #f7f3f0; }
+        ::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 0; }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .project-card {
+            display: block;
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: #dedbd5;
+        }
+        .project-card:focus-visible {
+            outline: 2px solid #000;
+            outline-offset: 3px;
+        }
+        .project-tile {
+            position: absolute;
+            inset: 0;
+        }
+        .art-placeholder {
+            position: absolute;
+            inset: 0;
+            transition: transform 500ms ease, filter 500ms ease;
+        }
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .project-card:hover .art-placeholder,
+        .project-card:focus-visible .art-placeholder {
+            transform: scale(1.05);
+            filter: saturate(0.75);
+        }
+        .placeholder-1 { background: linear-gradient(140deg, #d8d4cf 0%, #bbb6af 48%, #e8e4de 100%); }
+        .placeholder-2 { background: linear-gradient(35deg, #b9b8b6 0%, #dedbd6 52%, #aaa8a6 100%); }
+        .placeholder-3 { background: linear-gradient(155deg, #e4e0db 0%, #c2beb8 50%, #d2cdc6 100%); }
+        .placeholder-4 { background: linear-gradient(25deg, #a9a7a5 0%, #d0ccc7 48%, #b7b1aa 100%); }
+        .placeholder-5 { background: linear-gradient(125deg, #d6d2ce 0%, #aaa9a7 50%, #c9c3bc 100%); }
+        .placeholder-6 { background: linear-gradient(165deg, #c0bbb5 0%, #e1ddd7 46%, #b1ada8 100%); }
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 5px;
+            padding: 18px;
+            color: #fff;
+            background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.75) 100%);
+            opacity: 0;
+            transition: opacity 250ms ease;
+        }
+        .project-card:hover .project-overlay,
+        .project-card:focus-visible .project-overlay {
+            opacity: 1;
+        }
+        .filter-pill {
+            border: 0;
+            border-radius: 0;
+            padding: 0;
+            background: transparent;
+            color: rgba(0,0,0,.38);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            line-height: 1;
+            text-decoration: none;
+            transition: color 180ms ease, opacity 180ms ease;
+        }
+        .filter-pill:hover,
+        .filter-pill:focus-visible {
+            color: #000;
+        }
+        .filter-pill.is-active {
+            background: transparent;
+            color: #000;
+        }
+        .filter-pill:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .social-link {
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            opacity: .8;
+            transition: opacity .2s ease, transform .2s ease;
+        }
+        .social-link:hover,
+        .social-link:focus-visible { opacity: .45; transform: translateY(-1px); }
+        .social-link:focus-visible { outline: 1px solid #000; outline-offset: 4px; }
+        .social-link svg { width: 19px; height: 19px; display: block; }
+        .social-monogram { font-size: 10px; font-weight: 900; letter-spacing: -.08em; }
+        .star-hollow { width:14px; height:14px; background:currentColor; clip-path:polygon(50% 0%,55% 45%,100% 50%,55% 55%,50% 100%,45% 55%,0% 50%,45% 45%); }
+        .home-header { width:100%; padding:40px 48px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; color:#000; font-family:'Inter', sans-serif; font-size:16px; line-height:normal; }
+        .home-header-brand { display:flex; align-items:center; gap:12px; }
+        .home-brand { color:#000; text-decoration:none; font-size:1.25rem; line-height:1.75rem; font-weight:900; letter-spacing:.3em; }
+        .home-header-nav { display:flex; align-items:center; gap:56px; }
+        .home-header-nav > a { color:inherit; font-size:11px; font-weight:700; letter-spacing:.25em; text-decoration:none; }
+        .home-header-nav > a[aria-current="page"] { border-bottom:1px solid currentColor; padding-bottom:4px; }
+        .home-header-nav > a:hover, .home-header-nav > a:focus-visible { opacity:.5; }
+        .home-header .social-links { margin-left:4px; }
+        .home-header-end-star { margin-left:16px; }
+        @media (max-width: 1024px) {
+            .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+        }
+
+        /* Keep the all-projects view on the same page shell as the category pages. */
+        html, body { margin:0; min-height:100%; }
+        * { box-sizing:border-box; }
+        .site-header { display:flex; justify-content:space-between; align-items:center; padding:28px 48px; border-bottom:1px solid rgba(0,0,0,.1); }
+        .brand { display:flex; align-items:center; gap:12px; color:inherit; text-decoration:none; font-size:20px; font-weight:900; letter-spacing:.3em; }
+        .brand-star, .site-star { width:14px; height:14px; background:currentColor; clip-path:polygon(50% 0%,55% 45%,100% 50%,55% 55%,50% 100%,45% 55%,0% 50%,45% 45%); }
+        .site-nav { display:flex; align-items:center; gap:34px; }
+        .site-nav > a { color:inherit; font-size:11px; font-weight:800; letter-spacing:.25em; text-decoration:none; }
+        .site-nav > a:hover, .site-nav > a:focus-visible { opacity:.55; }
+        .submenu { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:16px 32px; border-bottom:1px solid rgba(0,0,0,.1); color:#000; line-height:normal; }
+        .submenu-left { display:flex; align-items:center; flex-wrap:wrap; gap:20px; }
+        .index-label { display:flex; align-items:center; gap:8px; font-size:10px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; }
+        .index-dot { width:6px; height:6px; border-radius:50%; background:#000; }
+        .filter-pills { display:flex; flex-wrap:wrap; gap:24px; }
+        .filter-pill.active { color:#000; background:transparent; }
+        .index-label::before { content:'+'; color:rgba(0,0,0,.3); margin-right:2px; }
+        .submenu-caption { font-size:10px; font-weight:800; letter-spacing:.18em; opacity:.3; text-transform:uppercase; }
+        .all-page-main { min-height:calc(100vh - 174px); padding:28px 32px 42px; display:flex; flex-direction:column; }
+        .all-content { width:min(1320px, 100%); flex:1; min-height:0; margin:0 auto; display:flex; flex-direction:column; }
+        .all-eyebrow { display:flex; align-items:center; gap:16px; margin-bottom:18px; font-size:10px; font-weight:900; letter-spacing:.4em; text-transform:uppercase; }
+        .all-eyebrow::after { content:""; width:64px; height:1px; background:rgba(0,0,0,.25); }
+        .all-content .gallery-grid { grid-template-columns:repeat(3, minmax(0, 1fr)); gap:16px; }
+        .all-content .project-card { aspect-ratio:1.2; }
+        .all-content .project-overlay { opacity:1; background:linear-gradient(180deg, transparent 30%, rgba(0,0,0,.68) 100%); }
+        .all-slider-shell { width:min(1320px, 100%); flex:1; min-height:0; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) 112px; gap:16px; }
+        .all-slider-stage { position:relative; min-height:520px; overflow:hidden; background:#eee9e5; }
+        .all-slide { position:absolute; inset:0; display:grid; opacity:0; pointer-events:none; transition:opacity .35s ease; }
+        .all-slide.is-active { opacity:1; pointer-events:auto; }
+        .all-slide-art { position:relative; width:100%; height:100%; min-height:520px; overflow:hidden; display:flex; align-items:flex-end; padding:32px; text-decoration:none; }
+        .all-slide-art::before, .all-slide-art::after { content:""; position:absolute; pointer-events:none; }
+        .all-slide-art.placeholder-1 { background:linear-gradient(140deg,#d8d4cf 0%,#bbb6af 48%,#e8e4de 100%); }
+        .all-slide-art.placeholder-2 { background:linear-gradient(35deg,#b9b8b6 0%,#dedbd6 52%,#aaa8a6 100%); }
+        .all-slide-art.placeholder-3 { background:linear-gradient(155deg,#e4e0db 0%,#c2beb8 50%,#d2cdc6 100%); }
+        .all-slide-art.placeholder-4 { background:linear-gradient(25deg,#a9a7a5 0%,#d0ccc7 48%,#b7b1aa 100%); }
+        .all-slide-art.placeholder-5 { background:linear-gradient(125deg,#d6d2ce 0%,#aaa9a7 50%,#c9c3bc 100%); }
+        .all-slide-art.placeholder-6 { background:linear-gradient(165deg,#c0bbb5 0%,#e1ddd7 46%,#b1ada8 100%); }
+        .all-slide-meta { position:relative; z-index:2; color:#000; }
+        .all-slide-number { display:block; margin-bottom:10px; font-size:10px; font-weight:900; letter-spacing:.35em; opacity:.55; }
+        .all-slide-title { margin:0; font-size:clamp(34px,6vw,86px); line-height:.9; font-weight:900; letter-spacing:-.06em; text-transform:uppercase; }
+        .all-slide-caption { margin:14px 0 0; max-width:360px; font-size:11px; line-height:1.5; letter-spacing:.08em; opacity:.55; }
+        .all-slider-arrow { position:absolute; top:50%; z-index:4; width:64px; height:100px; border:0; background:rgba(247,243,240,.75); font-size:34px; line-height:1; cursor:pointer; opacity:0; transform:translateY(-50%); transition:opacity .2s ease, background .2s ease; }
+        .all-slider-arrow:focus-visible, .all-slider-stage:hover .all-slider-arrow { opacity:1; }
+        .all-slider-arrow:hover { background:#fff; }
+        .all-slider-arrow.left { left:0; }
+        .all-next-preview { position:relative; min-height:520px; overflow:hidden; background:#eee9e5; }
+        .all-next-preview-art { position:absolute; inset:0; display:block; }
+        .all-next-preview-label { position:absolute; left:10px; bottom:10px; z-index:2; color:#000; font-size:9px; font-weight:900; letter-spacing:.12em; }
+        .all-next-button { position:absolute; z-index:3; top:50%; left:50%; width:52px; height:52px; border:0; transform:translate(-50%,-50%); background:rgba(0,0,0,.72); color:#fff; font-size:28px; line-height:1; cursor:pointer; opacity:0; transition:opacity .2s ease, background .2s ease; }
+        .all-next-preview:hover .all-next-button, .all-next-button:focus-visible { opacity:1; }
+        .all-next-button:hover { background:#000; }
+        .all-slider-footer { display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:10px; font-weight:800; letter-spacing:.2em; opacity:.45; text-transform:uppercase; }
+        @media (max-width:720px) {
+            .site-header { padding:22px 20px; }
+            .brand { font-size:15px; }
+            .site-nav { gap:14px; }
+            .site-nav > a { font-size:9px; }
+            .social-links { display:none; }
+            .submenu { padding:14px 20px; align-items:flex-start; flex-direction:column; }
+            .all-page-main { padding:20px; }
+            .all-content .gallery-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px; }
+            .all-slider-shell { grid-template-columns:1fr; }
+            .all-slider-stage, .all-slide-art { min-height:62vh; }
+            .all-next-preview { min-height:90px; height:90px; }
+            .all-next-button, .all-slider-arrow { opacity:1; }
+            .all-next-button { width:44px; height:44px; }
+            .all-slider-arrow { width:48px; height:72px; }
+        }
+        .cms-work-card { display:flex; flex-direction:column; gap:24px; min-height:340px; color:#000; text-decoration:none; }
+        .cms-work-card-head { display:flex; flex-direction:column; gap:8px; }
+        .cms-work-number { font-size:10px; font-weight:900; letter-spacing:.2em; opacity:.45; }
+        .cms-work-title { margin:0; font-size:clamp(25px,2.5vw,42px); font-weight:900; line-height:.98; letter-spacing:-.055em; text-transform:uppercase; }
+        .cms-work-cover { flex:1; min-height:225px; overflow:hidden; background:#e4e2df; }
+        .cms-work-cover img { width:100%; height:100%; display:block; object-fit:cover; transform:scale(var(--cover-zoom,1)); transform-origin:center; transition:transform .5s ease,filter .3s ease; }
+        .cms-work-card:hover .cms-work-cover img { filter:saturate(.92); }
+        .cms-work-message { max-width:1600px; margin:0 auto; padding:80px 32px; font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; opacity:.45; }
+    </style>
+<link rel="stylesheet" href="work-category-menu.css?v=mobile-project-detail-20260929"><script src="portfolio-data.js"></script><script src="static-api.js"></script></head>
+<body class="w-full min-h-screen flex flex-col" vid="8">
+
+    <header class="home-header">
+        <div class="home-header-brand">
+            <a href="jessica-cui.html" class="home-brand">JESSICA CUI</a>
+            <div class="star-hollow text-black"></div>
+        </div>
+        <nav class="home-header-nav">
+            <a href="jessica-cui-work.html" aria-current="page">WORK</a>
+            <a href="jessica-cui-about.html">ABOUT</a>
+            <div class="social-links" aria-label="Social links">
+                <a href="#" class="social-link" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.5" cy="6.6" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+                <a href="https://www.artstation.com/jessica12312" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="ArtStation" title="ArtStation"><span class="social-monogram">AS</span></a>
+                <a href="#" class="social-link" aria-label="TikTok" title="TikTok"><span class="social-monogram">♪</span></a>
+                <a href="#" class="social-link" aria-label="Gmail" title="Gmail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg></a>
+            </div>
+            <div class="star-hollow home-header-end-star"></div>
+        </nav>
+    </header>
+
+    <div class="submenu" aria-label="Work category navigation">
+        <div class="submenu-left">
+            <div class="index-label"><span class="index-dot"></span> INDEX</div>
+            <nav class="filter-pills" aria-label="Filter work by category">
+                <a href="jessica-cui-work.html" class="filter-pill active" aria-current="page">ALL</a>
+                <a href="jessica-cui-work.html?category=character-design" class="filter-pill" data-category="character-design">CHARACTER DESIGN</a>
+                <a href="jessica-cui-work.html?category=illustration" class="filter-pill" data-category="illustration">ILLUSTRATION</a>
+                <a href="jessica-cui-work.html?category=3d-modeling" class="filter-pill" data-category="3d-modeling">3D MODELING</a>
+            </nav>
+        </div>
+        <div class="submenu-caption">ALL PROJECTS</div>
+    </div>
+
+    
+    
+    <main class="flex-1 w-full p-8 relative" aria-label="Published work">
+        <div id="work-grid" class="bento-container max-w-[1600px] mx-auto"></div>
+        <p id="work-message" class="cms-work-message" hidden></p>
+    </main>
+
+    <footer class="w-full border-t border-black/10 px-8 py-10 bg-[#f7f3f0] z-40" vid="111">
+        <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row justify-between items-end lg:items-center gap-8" vid="112">
+            <div class="flex flex-col gap-4" vid="113">
+                <div class="flex items-center gap-4" vid="114">
+                    <div class="w-10 h-10 border border-black flex items-center justify-center" vid="115">
+                        <div class="w-2 h-2 bg-black rotate-45" vid="116"></div>
+                    </div>
+                    <div vid="117">
+                        <p class="text-[10px] font-black tracking-widest uppercase" vid="118">All Rights Reserved</p>
+                        <p class="text-[10px] font-bold tracking-widest uppercase opacity-30" vid="119">Jessica Cui Portfolio — 2026 Edition</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-end gap-2" vid="120">
+                <div class="flex gap-6 mb-2" vid="121">
+                    <span class="text-[10px] font-black tracking-widest uppercase" vid="122">Privacy</span>
+                    <span class="text-[10px] font-black tracking-widest uppercase" vid="123">Terms</span>
+                    <span class="text-[10px] font-black tracking-widest uppercase" vid="124">Cookies</span>
+                </div>
+                <div class="flex items-center gap-4" vid="125">
+                    <span class="text-[9px] font-black tracking-[0.3em] uppercase opacity-40" vid="126">Back to Top</span>
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-8 h-8 border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-all" vid="127">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" vid="128"><path d="m18 15-6-6-6 6" vid="129"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="work-category-catalog.js?v=submenu-persist-20260929" defer></script>
+    <script src="work-catalog.js?v=submenu-persist-20260929" defer></script>
+</body></html>
