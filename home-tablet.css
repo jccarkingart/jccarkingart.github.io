@@ -72,9 +72,11 @@
 
   /* The default artwork includes robots on both sides of the central figure. */
   .hero-character[data-artwork-id="default"] {
-    left: 54%;
-    top: 56%;
-    height: 50svh;
+    left: 51%;
+    top: 48%;
+    width: 85svh;
+    height: 80svh;
+    object-fit: fill;
   }
 
   .hero-section > div:last-child {
@@ -93,6 +95,18 @@
   }
 
   .hero-section > div:last-child > div.absolute { display: none; }
+
+  /* The blue character's project list starts beside her head, as in the reference.
+     A transparent column keeps its background from cutting through the artwork. */
+  .hero-section:has(.hero-character[data-artwork-id="default"]) > div:last-child {
+    top: 15%;
+    width: 21vw !important;
+    background: transparent;
+  }
+
+  .hero-section:has(.hero-character[data-artwork-id="default"]) #home-featured-projects {
+    gap: 5.3vw !important;
+  }
 
   #home-featured-projects {
     width: 100%;
