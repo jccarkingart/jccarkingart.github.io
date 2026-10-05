@@ -34,6 +34,9 @@
         if (!unique.length) return;
         let previousUrl = '';
         try { previousUrl = sessionStorage.getItem('portfolio-home-artwork') || ''; } catch {}
+        if (!previousUrl) {
+          try { previousUrl = history.state?.portfolioHomeArtwork || ''; } catch {}
+        }
         const choices = unique.length > 1 ? unique.filter((image) => image.url !== previousUrl) : unique;
         const selected = choices[Math.floor(Math.random() * choices.length)];
         if (!selected) return;
@@ -44,6 +47,7 @@
         if (hero.complete && hero.naturalWidth) applyArtworkScale();
         hero.alt = selected.id === 'default' ? 'Character concept artwork' : 'Homepage character artwork';
         try { sessionStorage.setItem('portfolio-home-artwork', selected.url); } catch {}
+        try { history.replaceState({ ...(history.state || {}), portfolioHomeArtwork: selected.url }, ''); } catch {}
       })
       .catch(() => {});
   }
@@ -111,7 +115,7 @@
         link.href = `jessica-cui-project.html?project=${encodeURIComponent(project.id)}`;
         link.className = 'flex items-center gap-8 group cursor-pointer no-underline';
         const frame = document.createElement('div');
-        frame.className = 'relative w-28 h-28 border border-black/10 flex items-center justify-center p-2 overflow-hidden';
+        frame.className = 'home-featured-frame relative w-28 h-28 flex items-center justify-center p-2 overflow-hidden';
         const image = document.createElement('img');
         image.src = coverUrl;
         image.alt = '';
@@ -119,6 +123,12 @@
         image.style.objectPosition = `${project.homeCoverPosition?.x ?? 50}% ${project.homeCoverPosition?.y ?? 50}%`;
         image.style.transform = `scale(${(project.homeCoverZoom ?? 100) / 100})`;
         frame.append(image);
+        ['top-left', 'top-right', 'bottom-left', 'bottom-right'].forEach((corner) => {
+          const mark = document.createElement('span');
+          mark.className = `star-hollow text-black home-featured-frame-corner home-featured-frame-corner--${corner}`;
+          mark.setAttribute('aria-hidden', 'true');
+          frame.append(mark);
+        });
         const copy = document.createElement('div');
         const title = document.createElement('span');
         title.className = 'text-[9px] font-black tracking-[0.4em] block mb-3';

@@ -162,6 +162,10 @@
       closeMenu();
     }
   });
+  window.addEventListener('portfolio:work-category-change', () => {
+    touchOpenedCategory = '';
+    closeMenu();
+  });
   categoryNav.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !menu.hidden) {
       event.preventDefault();

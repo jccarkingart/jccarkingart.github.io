@@ -1,0 +1,131 @@
+/* A quiet motion rhythm shared by the public pages and Studio preview. */
+/* Cross-document snapshots can resize between the Home, Work and About layouts. */
+@view-transition { navigation: none; }
+
+/* Outlined glyphs make the brand independent of web-font loading and fallback metrics. */
+.portfolio-wordmark[data-brand-wordmark] {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 20px !important;
+  line-height: 28px;
+  letter-spacing: 0 !important;
+}
+.portfolio-wordmark-art { display: block; flex-shrink: 0; }
+.portfolio-wordmark-art--mobile { display: none; }
+@media (max-width: 640px) {
+  .portfolio-wordmark[data-brand-wordmark] { font-size: 15px !important; }
+  .portfolio-wordmark-art--desktop { display: none; }
+  .portfolio-wordmark-art--mobile { display: block; }
+}
+
+/* Keep the primary navigation beside the brand on small screens. */
+@media (max-width: 720px) {
+  header.home-header {
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 18px 20px 12px;
+  }
+  .home-header-nav {
+    flex: 0 0 auto;
+    gap: clamp(14px, 4vw, 22px);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .home-header-nav > a {
+    font-size: 9px;
+    letter-spacing: .16em;
+  }
+  .home-header .social-links,
+  .home-header-end-star { display: none; }
+
+  body > header.w-full {
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    padding: 18px 20px 12px !important;
+  }
+  body > header.w-full > nav {
+    width: auto !important;
+    flex: 0 0 auto;
+    flex-wrap: nowrap !important;
+    justify-content: flex-end;
+    gap: clamp(14px, 4vw, 22px) !important;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  body > header.w-full > nav > a {
+    font-size: 9px !important;
+    letter-spacing: .16em !important;
+    white-space: nowrap;
+  }
+  body > header.w-full > nav .social-links,
+  body > header.w-full > nav > .star-hollow:last-child { display: none !important; }
+}
+
+@keyframes portfolio-ux-rise {
+  from { opacity: .58; translate: 0 7px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes portfolio-page-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A brief opacity-only entrance avoids scaling or shifting the page shell. */
+  body { animation: portfolio-page-fade 280ms ease-out both; }
+  .page-main .illustration-caption,
+  .project-viewer-main .project-caption { animation: portfolio-ux-rise 430ms cubic-bezier(.2,.7,.2,1) 70ms both; }
+}
+
+/* Keep the existing artwork zoom and cropping; add only a small response. */
+.hero-section .work-viewer {
+  transition: scale 240ms cubic-bezier(.2,.7,.2,1);
+}
+.hero-section .work-viewer:hover,
+.hero-section .work-viewer:focus-visible { scale: 1.10; }
+
+#home-featured-projects .home-featured-frame-corner {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+#home-featured-projects .home-featured-frame-corner--top-left { top: 0; left: 0; }
+#home-featured-projects .home-featured-frame-corner--top-right { top: 0; right: 0; }
+#home-featured-projects .home-featured-frame-corner--bottom-left { bottom: 0; left: 0; }
+#home-featured-projects .home-featured-frame-corner--bottom-right { right: 0; bottom: 0; }
+
+#home-featured-projects > a img,
+#work-grid .cms-work-cover img {
+  transition: scale 240ms cubic-bezier(.2,.7,.2,1), filter 240ms ease;
+}
+#home-featured-projects > a:hover img,
+#home-featured-projects > a:focus-visible img { scale: 1.10; }
+#work-grid .cms-work-card:hover .cms-work-cover img,
+#work-grid .cms-work-card:focus-visible .cms-work-cover img { scale: 1.07; }
+#work-grid .cms-work-card:hover .cms-work-cover img,
+#work-grid .cms-work-card:focus-visible .cms-work-cover img { filter: saturate(.96); }
+
+.bento-cell { transition-duration: 240ms; }
+.project-card .art-placeholder { transition-duration: 240ms; }
+.project-card:hover .art-placeholder,
+.project-card:focus-visible .art-placeholder { transform: scale(1.10); filter: saturate(.96); }
+.project-card .project-overlay { transition-duration: 240ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  #home-featured-projects > a img,
+  #work-grid .cms-work-cover img,
+  .hero-section .work-viewer,
+  .bento-cell,
+  .project-card .art-placeholder,
+  .project-card .project-overlay { transition-duration: 0s; }
+  #home-featured-projects > a:hover img,
+  #home-featured-projects > a:focus-visible img,
+  #work-grid .cms-work-card:hover .cms-work-cover img,
+  #work-grid .cms-work-card:focus-visible .cms-work-cover img { scale: 1; }
+  .hero-section .work-viewer:hover,
+  .hero-section .work-viewer:focus-visible { scale: 1; }
+  .project-card:hover .art-placeholder,
+  .project-card:focus-visible .art-placeholder { transform: none; }
+}

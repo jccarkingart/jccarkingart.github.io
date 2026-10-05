@@ -1,0 +1,51 @@
+.about-sparkles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.about-sparkle {
+  position: absolute;
+  display: block;
+  width: var(--sparkle-size);
+  aspect-ratio: 1;
+  overflow: visible;
+  fill: #fbe879;
+  stroke: #111;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .82;
+  transform: translate(-50%, -50%) scale(.97) rotate(-2deg);
+  transform-origin: center;
+  animation: about-sparkle-glint 14s ease-in-out infinite;
+  animation-delay: var(--sparkle-delay);
+}
+
+.about-sparkle path {
+  stroke-width: 3px;
+  vector-effect: non-scaling-stroke;
+}
+
+.about-sparkle--one { left: 23%; top: 29%; --sparkle-size: 13%; --sparkle-delay: 0s; }
+.about-sparkle--two { left: 33%; top: 18%; --sparkle-size: 7%; --sparkle-delay: -2.5s; }
+.about-sparkle--three { left: 79%; top: 37%; --sparkle-size: 8%; --sparkle-delay: -5s; }
+.about-sparkle--four { left: 84%; top: 49%; --sparkle-size: 5.5%; --sparkle-delay: -7.5s; }
+.about-sparkle--five { left: 21%; top: 67%; --sparkle-size: 6.5%; --sparkle-delay: -10s; }
+.about-sparkle--dot-left { left: 21%; top: 40%; --sparkle-size: 2.4%; --sparkle-delay: -1.25s; }
+.about-sparkle--dot-right { left: 79%; top: 55%; --sparkle-size: 2.4%; --sparkle-delay: -8.75s; }
+.about-sparkle--dot-left,
+.about-sparkle--dot-right {
+  border: 3px solid #111;
+  border-radius: 50%;
+  background: #fbe879;
+}
+
+@keyframes about-sparkle-glint {
+  0%, 13%, 100% { opacity: .82; transform: translate(-50%, -50%) scale(.97) rotate(-2deg); }
+  5%, 8% { opacity: 1; transform: translate(-50%, -50%) scale(1.09) rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-sparkle { animation: none; opacity: 1; transform: translate(-50%, -50%); }
+}

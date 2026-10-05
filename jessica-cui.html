@@ -1,10 +1,15 @@
+<!doctype html>
 <html lang="en" vid="0"><head vid="1">
     <meta charset="UTF-8" vid="2">
+    <style id="portfolio-paint-guard">html{background:#F6F3F0;color-scheme:light}</style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
     <title vid="4">Jessica Cui - Character Concept Artist</title>
-    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;family=Homemade+Apple&amp;display=swap" rel="stylesheet" vid="6">
-    <script src="https://unpkg.com/@phosphor-icons/web" vid="7"></script>
+    <link rel="stylesheet" href="portfolio-layout.css?v=1">
+    <link rel="preload" href="portfolio-inter.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="media/hero.webp" as="image" fetchpriority="high">
+    <link rel="stylesheet" href="portfolio-fonts.css?v=2">
+    <style>html.home-fonts-pending .hero-section { visibility:hidden; }</style>
+    <script src="home-layout.js?v=1"></script>
     <style vid="8">
         body {
             font-family: 'Inter', sans-serif;
@@ -82,6 +87,7 @@
         .social-link svg { width: 19px; height: 19px; display: block; }
         .social-monogram { font-size: 10px; font-weight: 900; letter-spacing: -.08em; }
         .hero-section { position: relative; background: #F6F3F0; }
+        #home-featured-projects { min-height: 27rem; }
         .hero-character { display: block; position: absolute; left: 54%; top: -11%; width: auto; height: 129%; max-width: none; max-height: none; transform: translateX(-50%) scale(var(--hero-artwork-scale, 1)); transform-origin: 50% 50%; z-index: 10; pointer-events: none; user-select: none; }
         @media (max-width: 640px) {
             :root { --home-mobile-gutter: 20px; }
@@ -112,6 +118,7 @@
             .hero-section > div:last-child > div.absolute { position: relative !important; inset: auto !important; width: 100%; margin: 0 auto 24px !important; opacity: .55; text-align: center; }
             .hero-section > div:last-child > div.absolute .star-hollow { margin-bottom: 7px !important; }
             #home-featured-projects { display: flex; flex-direction: column; align-items: stretch; gap: 18px !important; width: 100%; margin: 0; }
+            #home-featured-projects { min-height: 18rem; }
             #home-featured-projects > a { width: 100%; min-width: 0; min-height: 84px; gap: 16px !important; }
             #home-featured-projects > a > div:first-child { width: 84px !important; height: 84px !important; flex: 0 0 84px; padding: 5px !important; }
             #home-featured-projects > a > div:last-child { min-width: 0; flex: 1; }
@@ -121,25 +128,25 @@
             footer[aria-label="Page navigation"] > * { display: none !important; }
         }
     </style>
-<script src="portfolio-data.js"></script><script src="static-api.js"></script></head>
+<link rel="stylesheet" href="ux-motion.css?v=18"><link rel="stylesheet" href="home-tablet.css?v=2"><script src="portfolio-data.js?v=47cafc856d99"></script><script src="static-api.js"></script></head>
 <body class="w-full h-screen flex flex-col overflow-hidden select-none" vid="9">
 
     
     <header class="w-full px-12 py-10 flex justify-between items-center z-50" vid="10">
         <div class="flex items-center gap-3" vid="11">
-            <span class="text-xl font-black tracking-[0.3em]" vid="12">JESSICA CUI</span>
+            <span class="text-xl font-black tracking-[0.3em] portfolio-wordmark" vid="12" data-brand-wordmark="true" aria-label="JESSICA CUI" role="img"><svg xmlns="http://www.w3.org/2000/svg" class="portfolio-wordmark-art portfolio-wordmark-art--desktop" width="191.98633" height="28" viewBox="0 0 191.98633 28" style="width:9.59932em;height:1.4em" fill="currentColor" aria-hidden="true" focusable="false"><path transform="translate(0 21.27539) scale(0.00977 -0.00977)" d="M586 -20Q324 -20 182 106Q40 232 40 466L40 559L444 559L444 458Q444 376 481 335Q518 294 586 294Q654 294 690 335Q726 376 726 460L726 1490L1124 1490L1124 468Q1124 233 984.5 106.5Q845 -20 586 -20Z"/><path transform="translate(17.91406 21.27539) scale(0.00977 -0.00977)" d="M96 0L96 1490L1170 1490L1170 1164L500 1164L500 912L1114 912L1114 594L500 594L500 326L1166 326L1166 0Z"/><path transform="translate(36.16992 21.27539) scale(0.00977 -0.00977)" d="M702 -18Q508 -18 363.5 39.5Q219 97 139 217Q59 337 58 524L442 524Q446 456 476.5 409Q507 362 562.5 338Q618 314 696 314Q761 314 805 330Q849 346 871.5 374.5Q894 403 894 440Q894 474 872.5 499.5Q851 525 802 546Q753 567 670 584L520 616Q323 658 209.5 759.5Q96 861 96 1036Q96 1178 173 1284.5Q250 1391 385.5 1450.5Q521 1510 698 1510Q879 1510 1010.5 1449.5Q1142 1389 1213.5 1279.5Q1285 1170 1286 1024L898 1024Q893 1097 844.5 1137.5Q796 1178 698 1178Q636 1178 596 1163.5Q556 1149 537 1123Q518 1097 518 1064Q518 1029 538.5 1002.5Q559 976 603.5 956.5Q648 937 718 922L840 896Q963 870 1051.5 827Q1140 784 1196.5 726.5Q1253 669 1279.5 597Q1306 525 1306 440Q1306 293 1233.5 190.5Q1161 88 1026 35Q891 -18 702 -18Z"/><path transform="translate(55.49023 21.27539) scale(0.00977 -0.00977)" d="M702 -18Q508 -18 363.5 39.5Q219 97 139 217Q59 337 58 524L442 524Q446 456 476.5 409Q507 362 562.5 338Q618 314 696 314Q761 314 805 330Q849 346 871.5 374.5Q894 403 894 440Q894 474 872.5 499.5Q851 525 802 546Q753 567 670 584L520 616Q323 658 209.5 759.5Q96 861 96 1036Q96 1178 173 1284.5Q250 1391 385.5 1450.5Q521 1510 698 1510Q879 1510 1010.5 1449.5Q1142 1389 1213.5 1279.5Q1285 1170 1286 1024L898 1024Q893 1097 844.5 1137.5Q796 1178 698 1178Q636 1178 596 1163.5Q556 1149 537 1123Q518 1097 518 1064Q518 1029 538.5 1002.5Q559 976 603.5 956.5Q648 937 718 922L840 896Q963 870 1051.5 827Q1140 784 1196.5 726.5Q1253 669 1279.5 597Q1306 525 1306 440Q1306 293 1233.5 190.5Q1161 88 1026 35Q891 -18 702 -18Z"/><path transform="translate(74.81055 21.27539) scale(0.00977 -0.00977)" d="M500 1490L500 0L96 0L96 1490Z"/><path transform="translate(86.63086 21.27539) scale(0.00977 -0.00977)" d="M788 -20Q584 -20 421.5 68Q259 156 164.5 326.5Q70 497 70 744Q70 993 166 1164Q262 1335 425 1422.5Q588 1510 788 1510Q927 1510 1044.5 1472.5Q1162 1435 1251 1363Q1340 1291 1395 1186Q1450 1081 1464 946L1054 946Q1048 994 1028.5 1033Q1009 1072 977 1100Q945 1128 900.5 1143Q856 1158 800 1158Q699 1158 628.5 1108.5Q558 1059 522 966.5Q486 874 486 744Q486 608 523 516Q560 424 629.5 378Q699 332 798 332Q854 332 898 347Q942 362 975 390Q1008 418 1028.5 457Q1049 496 1056 544L1466 544Q1459 449 1413.5 350Q1368 251 1283.5 167Q1199 83 1075.5 31.5Q952 -20 788 -20Z"/><path transform="translate(106.89844 21.27539) scale(0.00977 -0.00977)" d="M46 0L529 1490L1081 1490L1582 0L1124 0L951 578Q895 766 846 968.5Q797 1171 753 1371L845 1371Q803 1171 760 968.5Q717 766 663 578L498 0ZM404 286L404 588L1224 588L1224 286Z"/><path transform="translate(138.78125 21.27539) scale(0.00977 -0.00977)" d="M788 -20Q584 -20 421.5 68Q259 156 164.5 326.5Q70 497 70 744Q70 993 166 1164Q262 1335 425 1422.5Q588 1510 788 1510Q927 1510 1044.5 1472.5Q1162 1435 1251 1363Q1340 1291 1395 1186Q1450 1081 1464 946L1054 946Q1048 994 1028.5 1033Q1009 1072 977 1100Q945 1128 900.5 1143Q856 1158 800 1158Q699 1158 628.5 1108.5Q558 1059 522 966.5Q486 874 486 744Q486 608 523 516Q560 424 629.5 378Q699 332 798 332Q854 332 898 347Q942 362 975 390Q1008 418 1028.5 457Q1049 496 1056 544L1466 544Q1459 449 1413.5 350Q1368 251 1283.5 167Q1199 83 1075.5 31.5Q952 -20 788 -20Z"/><path transform="translate(159.73242 21.27539) scale(0.00977 -0.00977)" d="M738 -18Q546 -18 401.5 49.5Q257 117 176.5 241.5Q96 366 96 536L96 1490L500 1490L500 570Q500 500 531 446.5Q562 393 615.5 362.5Q669 332 738 332Q808 332 862 362.5Q916 393 947 446.5Q978 500 978 570L978 1490L1382 1490L1382 536Q1382 366 1301 241.5Q1220 117 1075 49.5Q930 -18 738 -18Z"/><path transform="translate(180.16602 21.27539) scale(0.00977 -0.00977)" d="M500 1490L500 0L96 0L96 1490Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="portfolio-wordmark-art portfolio-wordmark-art--mobile" width="169.98633" height="28" viewBox="0 0 169.98633 28" style="width:8.49932em;height:1.4em" fill="currentColor" aria-hidden="true" focusable="false"><path transform="translate(0 21.27539) scale(0.00977 -0.00977)" d="M586 -20Q324 -20 182 106Q40 232 40 466L40 559L444 559L444 458Q444 376 481 335Q518 294 586 294Q654 294 690 335Q726 376 726 460L726 1490L1124 1490L1124 468Q1124 233 984.5 106.5Q845 -20 586 -20Z"/><path transform="translate(15.91406 21.27539) scale(0.00977 -0.00977)" d="M96 0L96 1490L1170 1490L1170 1164L500 1164L500 912L1114 912L1114 594L500 594L500 326L1166 326L1166 0Z"/><path transform="translate(32.16992 21.27539) scale(0.00977 -0.00977)" d="M702 -18Q508 -18 363.5 39.5Q219 97 139 217Q59 337 58 524L442 524Q446 456 476.5 409Q507 362 562.5 338Q618 314 696 314Q761 314 805 330Q849 346 871.5 374.5Q894 403 894 440Q894 474 872.5 499.5Q851 525 802 546Q753 567 670 584L520 616Q323 658 209.5 759.5Q96 861 96 1036Q96 1178 173 1284.5Q250 1391 385.5 1450.5Q521 1510 698 1510Q879 1510 1010.5 1449.5Q1142 1389 1213.5 1279.5Q1285 1170 1286 1024L898 1024Q893 1097 844.5 1137.5Q796 1178 698 1178Q636 1178 596 1163.5Q556 1149 537 1123Q518 1097 518 1064Q518 1029 538.5 1002.5Q559 976 603.5 956.5Q648 937 718 922L840 896Q963 870 1051.5 827Q1140 784 1196.5 726.5Q1253 669 1279.5 597Q1306 525 1306 440Q1306 293 1233.5 190.5Q1161 88 1026 35Q891 -18 702 -18Z"/><path transform="translate(49.49023 21.27539) scale(0.00977 -0.00977)" d="M702 -18Q508 -18 363.5 39.5Q219 97 139 217Q59 337 58 524L442 524Q446 456 476.5 409Q507 362 562.5 338Q618 314 696 314Q761 314 805 330Q849 346 871.5 374.5Q894 403 894 440Q894 474 872.5 499.5Q851 525 802 546Q753 567 670 584L520 616Q323 658 209.5 759.5Q96 861 96 1036Q96 1178 173 1284.5Q250 1391 385.5 1450.5Q521 1510 698 1510Q879 1510 1010.5 1449.5Q1142 1389 1213.5 1279.5Q1285 1170 1286 1024L898 1024Q893 1097 844.5 1137.5Q796 1178 698 1178Q636 1178 596 1163.5Q556 1149 537 1123Q518 1097 518 1064Q518 1029 538.5 1002.5Q559 976 603.5 956.5Q648 937 718 922L840 896Q963 870 1051.5 827Q1140 784 1196.5 726.5Q1253 669 1279.5 597Q1306 525 1306 440Q1306 293 1233.5 190.5Q1161 88 1026 35Q891 -18 702 -18Z"/><path transform="translate(66.81055 21.27539) scale(0.00977 -0.00977)" d="M500 1490L500 0L96 0L96 1490Z"/><path transform="translate(76.63086 21.27539) scale(0.00977 -0.00977)" d="M788 -20Q584 -20 421.5 68Q259 156 164.5 326.5Q70 497 70 744Q70 993 166 1164Q262 1335 425 1422.5Q588 1510 788 1510Q927 1510 1044.5 1472.5Q1162 1435 1251 1363Q1340 1291 1395 1186Q1450 1081 1464 946L1054 946Q1048 994 1028.5 1033Q1009 1072 977 1100Q945 1128 900.5 1143Q856 1158 800 1158Q699 1158 628.5 1108.5Q558 1059 522 966.5Q486 874 486 744Q486 608 523 516Q560 424 629.5 378Q699 332 798 332Q854 332 898 347Q942 362 975 390Q1008 418 1028.5 457Q1049 496 1056 544L1466 544Q1459 449 1413.5 350Q1368 251 1283.5 167Q1199 83 1075.5 31.5Q952 -20 788 -20Z"/><path transform="translate(94.89844 21.27539) scale(0.00977 -0.00977)" d="M46 0L529 1490L1081 1490L1582 0L1124 0L951 578Q895 766 846 968.5Q797 1171 753 1371L845 1371Q803 1171 760 968.5Q717 766 663 578L498 0ZM404 286L404 588L1224 588L1224 286Z"/><path transform="translate(122.78125 21.27539) scale(0.00977 -0.00977)" d="M788 -20Q584 -20 421.5 68Q259 156 164.5 326.5Q70 497 70 744Q70 993 166 1164Q262 1335 425 1422.5Q588 1510 788 1510Q927 1510 1044.5 1472.5Q1162 1435 1251 1363Q1340 1291 1395 1186Q1450 1081 1464 946L1054 946Q1048 994 1028.5 1033Q1009 1072 977 1100Q945 1128 900.5 1143Q856 1158 800 1158Q699 1158 628.5 1108.5Q558 1059 522 966.5Q486 874 486 744Q486 608 523 516Q560 424 629.5 378Q699 332 798 332Q854 332 898 347Q942 362 975 390Q1008 418 1028.5 457Q1049 496 1056 544L1466 544Q1459 449 1413.5 350Q1368 251 1283.5 167Q1199 83 1075.5 31.5Q952 -20 788 -20Z"/><path transform="translate(141.73242 21.27539) scale(0.00977 -0.00977)" d="M738 -18Q546 -18 401.5 49.5Q257 117 176.5 241.5Q96 366 96 536L96 1490L500 1490L500 570Q500 500 531 446.5Q562 393 615.5 362.5Q669 332 738 332Q808 332 862 362.5Q916 393 947 446.5Q978 500 978 570L978 1490L1382 1490L1382 536Q1382 366 1301 241.5Q1220 117 1075 49.5Q930 -18 738 -18Z"/><path transform="translate(160.16602 21.27539) scale(0.00977 -0.00977)" d="M500 1490L500 0L96 0L96 1490Z"/></svg></span>
             <div class="star-hollow text-black" vid="13"></div>
         </div>
         <nav class="flex items-center gap-14" vid="14">
             <a href="jessica-cui-work.html" class="text-[11px] font-bold tracking-[0.25em] hover:opacity-50 transition-opacity" vid="15">WORK</a>
             <a href="jessica-cui-about.html" class="text-[11px] font-bold tracking-[0.25em] hover:opacity-50 transition-opacity" vid="16">ABOUT</a>
             <div class="social-links ml-1" aria-label="Social links" vid="17">
-                <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
+                <a href="https://www.instagram.com/jccarkingart/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram" title="Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.5" cy="6.6" r="1" fill="currentColor" stroke="none"></circle></svg>
                 </a>
                 <a href="https://www.artstation.com/jessica12312" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="ArtStation" title="ArtStation"><span class="social-monogram">AS</span></a>
-                <a href="#" class="social-link" aria-label="TikTok" title="TikTok"><span class="social-monogram">♪</span></a>
-                <a href="#" class="social-link" aria-label="Gmail" title="Gmail">
+                <a href="https://www.tiktok.com/@jccarkingart?_r=1&_t=ZP-9AEcAgJzff5" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok" title="TikTok"><span class="social-monogram">♪</span></a>
+                <a href="mailto:jessicacui0128@gmail.com" class="social-link" aria-label="Gmail" title="Gmail">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
                 </a>
             </div>
@@ -158,7 +165,7 @@
             </div>
             
             <h1 class="text-8xl font-black leading-[0.95] mb-10 tracking-tighter" vid="24">
-                Worlds begin<br vid="25">with a character.
+                Worlds begin<br vid="25">with a <span class="hero-title-last">character.</span>
             </h1>
             
             <p class="text-[13px] leading-relaxed text-black/60 font-medium max-w-xs mb-10" vid="26">
@@ -239,5 +246,5 @@
         </div>
     </footer>
 
-    <script src="home-featured.js?v=character-design-only-20260930" defer></script>
+    <script src="home-featured.js?v=rotation-sync-20261004" defer></script>
 </body></html>

@@ -192,26 +192,6 @@
   canvas.addEventListener('webglcontextrestored',()=>location.reload());
   const source=new Image();
   source.onload=()=>{
-    // Flood-fill only white connected to the image border. Enclosed whites
-    // (face, eyes, fingers and clothing) remain opaque.
-    const maskCanvas=document.createElement('canvas');
-    maskCanvas.width=source.naturalWidth;maskCanvas.height=source.naturalHeight;
-    const ctx=maskCanvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(source,0,0);
-    const pixels=ctx.getImageData(0,0,maskCanvas.width,maskCanvas.height);
-    const w=maskCanvas.width,h=maskCanvas.height,n=w*h,seen=new Uint8Array(n),queue=new Int32Array(n);
-    let head=0,tail=0;
-    const visit=i=>{if(seen[i])return;const k=i*4;if(Math.min(pixels.data[k],pixels.data[k+1],pixels.data[k+2])<200)return;seen[i]=1;queue[tail++]=i;};
-    for(let x=0;x<w;x++){visit(x);visit((h-1)*w+x);}
-    for(let y=0;y<h;y++){visit(y*w);visit(y*w+w-1);}
-    while(head<tail){const i=queue[head++],x=i%w;if(x)visit(i-1);if(x<w-1)visit(i+1);if(i>=w)visit(i-w);if(i<n-w)visit(i+w);}
-    for(let i=0;i<n;i++){const k=i*4;pixels.data[k+3]=seen[i]?255-Math.min(pixels.data[k],pixels.data[k+1],pixels.data[k+2]):255;pixels.data[k]=pixels.data[k+1]=pixels.data[k+2]=255;}
-    ctx.putImageData(pixels,0,0);
-    gl.activeTexture(gl.TEXTURE2);
-    const maskTexture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,maskTexture);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,maskCanvas);
-    gl.uniform1i(gl.getUniformLocation(program,'silhouette'),2);
     gl.activeTexture(gl.TEXTURE0);
     const texture=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,texture);
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
@@ -219,7 +199,9 @@
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
     gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,source);
+    // The preprocessed artwork already contains the silhouette alpha mask.
     gl.uniform1i(gl.getUniformLocation(program,'artwork'),0);
+    gl.uniform1i(gl.getUniformLocation(program,'silhouette'),0);
     loaded=true; draw(); portrait.classList.add('ready');scheduleBlink();
   };
   // Embedded original allows WebGL on file:// without local-file CORS errors.

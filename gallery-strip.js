@@ -6,7 +6,8 @@
     let moving = false, pendingLayout = false, gesture = null, suppressClick = false;
     const queuedDirections = [];
     const dimensions = new Map();
-    const duration = 720;
+    const duration = 480;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     gallery.dataset.galleryVersion = 'section-return-first-20260927';
 
     const nextArrowIcon = next.querySelector?.('[data-next-arrow-icon]');
@@ -124,7 +125,7 @@
       physical = targetPhysical;
       select();
       const from = x, to = targetPosition(physical);
-      if (!animate || Math.abs(to - from) < 1) { writePosition(to); complete(animationToken); return; }
+      if (!animate || reducedMotion.matches || Math.abs(to - from) < 1) { writePosition(to); complete(animationToken); return; }
       moving = true;
       gallery.dataset.animating = 'true';
       updateControls();
