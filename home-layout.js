@@ -1,6 +1,8 @@
 (() => {
-  if (!document.fonts) return;
   const root = document.documentElement;
+  // Hide only the artwork until its selected image and saved scale are ready.
+  root.classList.add('home-artwork-pending');
+  if (!document.fonts) return;
   root.classList.add('home-fonts-pending');
   // Keep the hero's existing space while its final text metrics are prepared.
   Promise.allSettled([

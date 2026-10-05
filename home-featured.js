@@ -4,6 +4,8 @@
     ? '/api/admin/home-artwork'
     : '/api/public/home-artwork';
   if (hero) {
+    const initialSource = hero.getAttribute('src');
+    let fallbackArtwork = null;
     let activeArtwork = null;
     const scalePercent = (value) => Math.max(50, Math.min(150, Number.isFinite(Number(value)) ? Number(value) : 100));
     const applyArtworkScale = () => {
@@ -26,6 +28,7 @@
     fetch(artworkEndpoint, { cache: 'no-store' })
       .then((response) => response.ok ? response.json() : Promise.reject())
       .then((data) => {
+        fallbackArtwork = (data.images || []).find((image) => image.id === 'default') || null;
         const byId = new Map((data.images || []).map((image) => [image.id, image]));
         const candidates = window.PORTFOLIO_PREVIEW
           ? (data.draftIds || []).map((id) => byId.get(id)).filter((image) => image?.url)
@@ -49,7 +52,27 @@
         try { sessionStorage.setItem('portfolio-home-artwork', selected.url); } catch {}
         try { history.replaceState({ ...(history.state || {}), portfolioHomeArtwork: selected.url }, ''); } catch {}
       })
-      .catch(() => {});
+      .catch(() => {
+        // A failed selection still reveals the original artwork at its saved size.
+        activeArtwork = fallbackArtwork;
+        applyArtworkScale();
+        hero.src = initialSource;
+      })
+      .finally(async () => {
+        try {
+          if (hero.decode) await hero.decode();
+          else if (!hero.complete) await new Promise((resolve) => {
+            hero.addEventListener('load', resolve, { once: true });
+            hero.addEventListener('error', resolve, { once: true });
+          });
+        } catch {
+          activeArtwork = fallbackArtwork;
+          applyArtworkScale();
+          hero.src = initialSource;
+          try { await hero.decode?.(); } catch {}
+        }
+        document.documentElement.classList.remove('home-artwork-pending');
+      });
   }
 
   const list = document.getElementById('home-featured-projects');

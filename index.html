@@ -8,8 +8,8 @@
     <link rel="preload" href="portfolio-inter.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="media/hero.webp" as="image" fetchpriority="high">
     <link rel="stylesheet" href="portfolio-fonts.css?v=2">
-    <style>html.home-fonts-pending .hero-section { visibility:hidden; }</style>
-    <script src="home-layout.js?v=1"></script>
+    <style>html.home-fonts-pending .hero-section { visibility:hidden; }html.home-artwork-pending .hero-character { visibility:hidden; animation:none; }@media (prefers-reduced-motion: no-preference) { html:not(.home-artwork-pending):not(.home-fonts-pending) .hero-character { animation:portfolio-page-fade 280ms ease-out both; } }</style>
+    <script src="home-layout.js?v=2"></script>
     <style vid="8">
         body {
             font-family: 'Inter', sans-serif;
@@ -128,7 +128,7 @@
             footer[aria-label="Page navigation"] > * { display: none !important; }
         }
     </style>
-<link rel="stylesheet" href="ux-motion.css?v=18"><link rel="stylesheet" href="home-tablet.css?v=2"><script src="portfolio-data.js?v=47cafc856d99"></script><script src="static-api.js"></script></head>
+<link rel="stylesheet" href="ux-motion.css?v=18"><link rel="stylesheet" href="home-tablet.css?v=4"><script src="portfolio-data.js?v=f88ee224600b"></script><script src="static-api.js"></script></head>
 <body class="w-full h-screen flex flex-col overflow-hidden select-none" vid="9">
 
     
@@ -192,8 +192,8 @@
             
             <div class="absolute top-[15%] right-[40%] text-center opacity-40" vid="53">
                 <div class="star-hollow text-black mx-auto mb-4" vid="54"></div>
-                <p class="text-[9px] font-bold tracking-[0.3em] leading-relaxed text-black" vid="55">
-                    SAME PEOPLE<br vid="56">DIFFERENT WORLDS<br vid="57">ALWAYS A STORY.
+                <p class="w-full text-center text-[9px] font-bold tracking-[0.3em] leading-relaxed text-black" vid="55">
+                    Born on paper<br vid="56">Built to belong
                 </p>
             </div>
 
@@ -246,5 +246,5 @@
         </div>
     </footer>
 
-    <script src="home-featured.js?v=rotation-sync-20261004" defer></script>
+    <script src="home-featured.js?v=ready-artwork-20261005" defer></script>
 </body></html>

@@ -1,81 +1,95 @@
-/* Homepage composition for landscape iPad browser widths. */
-@media (min-width: 960px) and (max-width: 1366px) {
+/* Landscape iPad composition follows the owner's full-size homepage reference. */
+@media (min-width: 960px) and (max-width: 1367px),
+       (min-width: 1367px) and (max-width: 1920px) and (any-pointer: coarse) {
   body > header.w-full {
-    padding: 24px 32px !important;
+    padding: 5.3svh 2.2vw 3.6svh !important;
   }
 
   body > header.w-full > nav {
-    gap: clamp(18px, 2.3vw, 32px) !important;
+    gap: clamp(24px, 3.2vw, 44px) !important;
   }
 
   .hero-section {
-    display: grid !important;
-    grid-template-columns: minmax(0, 46%) minmax(0, 1fr) clamp(210px, 20vw, 240px);
-    grid-template-rows: minmax(0, 1fr);
-    align-items: center;
-    column-gap: 16px;
+    display: block !important;
     min-height: 0;
-    padding-inline: 32px !important;
+    padding-inline: 2.2vw !important;
+    overflow-x: clip;
+    overflow-y: visible;
+    isolation: isolate;
+    z-index: 1;
   }
 
   .hero-section > div:first-child {
-    grid-column: 1;
-    grid-row: 1;
-    width: 100% !important;
+    position: relative;
+    width: 44% !important;
     min-width: 0;
+    padding-top: 6.8svh;
     padding-bottom: 0 !important;
-    align-self: start;
-    padding-top: clamp(50px, 9svh, 78px);
+    justify-content: flex-start;
+    z-index: 2;
   }
 
   .hero-section > div:first-child > div:first-child {
-    margin-bottom: 32px !important;
+    margin-bottom: 24px !important;
   }
 
   .hero-section h1 {
-    font-size: clamp(60px, 5.7vw, 68px) !important;
+    font-size: clamp(68px, 6.8vw, 94px) !important;
     line-height: .95 !important;
-    letter-spacing: -.06em !important;
+    letter-spacing: -.055em !important;
     white-space: nowrap;
-    margin-bottom: 44px !important;
+    margin-bottom: 22px !important;
   }
 
   .hero-title-last { display: block; }
 
   .hero-section > div:first-child > p {
-    max-width: 35ch;
-    font-size: clamp(14px, 1.3vw, 16px) !important;
+    max-width: 23.3vw;
+    font-size: clamp(12px, 1.1vw, 15px) !important;
     line-height: 1.55 !important;
-    margin-bottom: 52px !important;
+    margin-bottom: 8svh !important;
   }
 
   .hero-section .work-viewer {
-    width: min(100%, 270px);
-    height: 80px;
+    width: 18vw;
+    height: 9.5svh;
   }
 
+  /* Transparent artwork spans the composition rather than a narrow grid cell.
+     Keep the same saved artwork percentage in the website and Studio. */
   .hero-character {
     position: absolute;
-    left: 57%;
-    top: 0;
+    left: 60%;
+    top: 58%;
     width: auto;
-    height: 120%;
+    height: 76svh;
     max-width: none;
     max-height: none;
-    object-fit: contain;
-    transform: translateX(-50%) scale(var(--hero-artwork-scale, 1));
+    transform: translate(-50%, -50%) scale(var(--hero-artwork-scale, 1));
     transform-origin: center center;
+    z-index: 1;
+  }
+
+  /* The default artwork includes robots on both sides of the central figure. */
+  .hero-character[data-artwork-id="default"] {
+    left: 54%;
+    top: 56%;
+    height: 50svh;
   }
 
   .hero-section > div:last-child {
-    grid-column: 3;
-    grid-row: 1;
-    width: 100% !important;
+    position: absolute;
+    top: 41%;
+    right: 2.2vw;
+    display: block !important;
+    width: 23.2vw !important;
     min-width: 0;
     height: auto !important;
     margin: 0 !important;
-    padding-right: 0 !important;
-    transform: translateY(clamp(60px, 15svh, 130px));
+    padding: 0 !important;
+    transform: none;
+    background: #F6F3F0;
+    z-index: 2;
   }
 
   .hero-section > div:last-child > div.absolute { display: none; }
@@ -84,19 +98,19 @@
     width: 100%;
     min-width: 0;
     min-height: 0;
-    gap: 40px !important;
+    gap: 3.5vw !important;
   }
 
   #home-featured-projects > a {
     width: 100%;
     min-width: 0;
-    gap: 12px !important;
+    gap: 1.8vw !important;
   }
 
   #home-featured-projects > a > div:first-child {
-    width: 72px !important;
-    height: 72px !important;
-    flex: 0 0 72px;
+    width: 6.5vw !important;
+    height: 6.5vw !important;
+    flex: 0 0 6.5vw;
     padding: 5px !important;
   }
 
@@ -107,29 +121,24 @@
 
   #home-featured-projects > a > div:last-child > span {
     display: block;
-    overflow-wrap: anywhere;
-    font-size: 10px !important;
+    overflow-wrap: normal;
+    font-size: clamp(9px, .8vw, 11px) !important;
     line-height: 1.45 !important;
-    letter-spacing: .16em !important;
-    margin-bottom: 6px !important;
+    letter-spacing: .25em !important;
+    margin-bottom: 7px !important;
   }
 
   #home-featured-projects > a > div:last-child > p {
-    font-size: 9px !important;
+    font-size: clamp(9px, .85vw, 12px) !important;
     line-height: 1.4 !important;
-    letter-spacing: .1em !important;
+    letter-spacing: .12em !important;
   }
 
   footer[aria-label="Page navigation"] {
-    padding-inline: 32px !important;
+    height: 6svh;
+    min-height: 0;
+    padding: 0 2.2vw !important;
   }
-}
 
-@media (min-width: 960px) and (max-width: 1050px) {
-  .hero-section > div:first-child { padding-top: 24px; }
-  .hero-section > div:first-child > div:first-child { margin-bottom: 20px !important; }
-  .hero-section h1 { margin-bottom: 24px !important; }
-  .hero-section > div:first-child > p { margin-bottom: 24px !important; }
-  .hero-section .work-viewer { height: 70px; }
-  .hero-section > div:last-child { transform: translateY(50px); }
+  footer[aria-label="Page navigation"] > * { display: none; }
 }
